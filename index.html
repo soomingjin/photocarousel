@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <title>Photo Carousell</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel='stylesheet' href="css/style.css"></link>
   <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <link rel='stylesheet' href="css/style.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
   <script src='js/script.js'></script>
@@ -14,13 +14,20 @@
 </head>
 
 <body>
-  <h1>Photo Carousell</h>
-      <div class='carousell'>
-        <button onclick="leftButton(getImageIndex())">Left</button>
-        <img id='image-container' src=''></img>
-        <button onclick="rightButton(getImageIndex())">Right</button>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Photo Carousell</a>
       </div>
-      <div id='output'>Container for output</div>
-      <div>CurrentIndex = <span id='indexOutput'>_</span></div>
-  </body>
+    </div>
+  </nav>
+  <div class='carousell'>
+    <button onclick="leftButton(getImageIndex())" class='button noselect' id='previous'>&lt;</button>
+    <img id='image-container' src=''></img>
+    <button onclick="rightButton(getImageIndex())" class='button noselect' id='next'>&gt;</button>
+  </div>
+  <!-- <div id='output'>Container for output</div> -->
+  <div>CurrentIndex = <span id='indexOutput'>_</span></div>
+</body>
+
 </html>

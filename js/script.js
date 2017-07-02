@@ -1,14 +1,21 @@
 //Array that stores the sources of images
 var images = ['http://thecatapi.com/api/images/get.php?api_key=MTAx&id=cfc',
   'https://images.pexels.com/photos/127028/pexels-photo-127028.jpeg?h=350&auto=compress&cs=tinysrgb',
-  'https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?h=350&auto=compress&cs=tinysrgb'
+  'https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?h=350&auto=compress&cs=tinysrgb',
+  'https://static.pexels.com/photos/236603/pexels-photo-236603.jpeg',
+  'https://static.pexels.com/photos/209800/pexels-photo-209800.jpeg',
+  'https://static.pexels.com/photos/199449/pexels-photo-199449.jpeg',
+  'https://static.pexels.com/photos/87413/animal-cat-domestic-eye-87413.jpeg',
+  'https://static.pexels.com/photos/64147/cat-young-cat-playful-pet-64147.jpeg'
 ];
+
+
 
 /**Controls how the left button behaves when clicked
  *@param {Number} index of image
  */
 function leftButton(currentIndex) {
-  $('#output').text("Left Button Clicked");
+  // $('#output').text("Left Button Clicked");
   var nextIndex = currentIndex;
   if (currentIndex <= 0) {
     nextIndex = images.length - 1;
@@ -21,11 +28,11 @@ function leftButton(currentIndex) {
 }
 
 /**
-  *Controls how the right button behaves when clicked
-  *@param {Number} index of image
-  */
+ *Controls how the right button behaves when clicked
+ *@param {Number} index of image
+ */
 function rightButton(currentIndex) {
-  $('#output').text("Right Button Clicked");
+  // $('#output').text("Right Button Clicked");
   var nextIndex = currentIndex;
   if (currentIndex >= (images.length - 1)) {
     nextIndex = 0;
@@ -38,13 +45,14 @@ function rightButton(currentIndex) {
 }
 
 /**
-  *Modifies the source attribute of the container to display the next image
-  *@param {Number} index of image
-  */
+ *Modifies the source attribute of the container to display the next image
+ *@param {Number} index of image
+ */
 function showImage(index) {
   var nextSource = images[index];
   var img = $('#image-container');
   img.attr('src', nextSource);
+  $('.button').height($('#image-container').height());
   return;
 }
 
