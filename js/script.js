@@ -1,9 +1,12 @@
-
-var images = [ 'http://thecatapi.com/api/images/get.php?api_key=MTAx&id=cfc',
+//Array that stores the sources of images
+var images = ['http://thecatapi.com/api/images/get.php?api_key=MTAx&id=cfc',
   'https://images.pexels.com/photos/127028/pexels-photo-127028.jpeg?h=350&auto=compress&cs=tinysrgb',
-  'https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?h=350&auto=compress&cs=tinysrgb' ];
+  'https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?h=350&auto=compress&cs=tinysrgb'
+];
 
-
+/**Controls how the left button behaves when clicked
+ *@param {Number} index of image
+ */
 function leftButton(currentIndex) {
   $('#output').text("Left Button Clicked");
   var nextIndex = currentIndex;
@@ -17,6 +20,10 @@ function leftButton(currentIndex) {
   return;
 }
 
+/**
+  *Controls how the right button behaves when clicked
+  *@param {Number} index of image
+  */
 function rightButton(currentIndex) {
   $('#output').text("Right Button Clicked");
   var nextIndex = currentIndex;
@@ -30,6 +37,10 @@ function rightButton(currentIndex) {
   return;
 }
 
+/**
+  *Modifies the source attribute of the container to display the next image
+  *@param {Number} index of image
+  */
 function showImage(index) {
   var nextSource = images[index];
   var img = $('#image-container');
@@ -37,13 +48,20 @@ function showImage(index) {
   return;
 }
 
-function getImageIndex(){
+/**
+ *Returns the index of the image in image array
+ *
+ *@return index of image
+ */
+function getImageIndex() {
   var img = $('#image-container');
   var source = img.attr('src');
   return images.indexOf(source);
 }
 
-function init(){
+//Run this function when the website is loaded for the first time
+//To show the first image in the array
+function init() {
   var currIndex;
   currIndex = 0;
   $('#indexOutput').text(currIndex);
