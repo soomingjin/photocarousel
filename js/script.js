@@ -9,20 +9,29 @@ var images = ['http://thecatapi.com/api/images/get.php?api_key=MTAx&id=cfc',
   'https://static.pexels.com/photos/64147/cat-young-cat-playful-pet-64147.jpeg'
 ];
 
+var localImages = [
+// 'images/cate1.jpg',
+'images/cate2.jpeg',
+'images/cate3.jpeg',
+'images/cate4.jpg',
+// 'images/cate5.jpg',
+'images/cate6.jpg',
+'images/cate7.jpg',
+// 'images/cate8.jpg'
+];
 
 
 /**Controls how the left button behaves when clicked
  *@param {Number} index of image
  */
-function leftButton(currentIndex) {
+function previous(currentIndex) {
   // $('#output').text("Left Button Clicked");
   var nextIndex = currentIndex;
   if (currentIndex <= 0) {
-    nextIndex = images.length - 1;
+    nextIndex = localImages.length - 1;
   } else {
     nextIndex -= 1;
   }
-  $('#indexOutput').text(nextIndex);
   showImage(nextIndex);
   return;
 }
@@ -31,17 +40,27 @@ function leftButton(currentIndex) {
  *Controls how the right button behaves when clicked
  *@param {Number} index of image
  */
-function rightButton(currentIndex) {
+function next(currentIndex) {
   // $('#output').text("Right Button Clicked");
   var nextIndex = currentIndex;
-  if (currentIndex >= (images.length - 1)) {
+  if (currentIndex >= (localImages.length - 1)) {
     nextIndex = 0;
   } else {
     nextIndex += 1;
   }
-  $('#indexOutput').text(nextIndex);
   showImage(nextIndex);
   return;
+}
+
+/**
+ *Returns the index of the image in image array
+ *
+ *@return {Number} index of image
+ */
+function getImageIndex() {
+  var img = $('#image-container');
+  var source = img.attr('src');
+  return localImages.indexOf(source);
 }
 
 /**
@@ -49,35 +68,30 @@ function rightButton(currentIndex) {
  *@param {Number} index of image
  */
 function showImage(index) {
-  var nextSource = images[index];
+  // var nextSource = images[index];
+  var nextSource = localImages[index];
   var img = $('#image-container');
   img.attr('src', nextSource);
-  $('.button').height($('#image-container').height());
+  img.ready(function(){
+    $('.button').height($('#image-container').height());
+  });
+  $('#indexOutput').text(index);
   return;
 }
 
-/**
- *Returns the index of the image in image array
- *
- *@return index of image
- */
-function getImageIndex() {
-  var img = $('#image-container');
-  var source = img.attr('src');
-  return images.indexOf(source);
-}
+
 
 //Run this function when the website is loaded for the first time
 //To show the first image in the array
 function init() {
   var currIndex;
   currIndex = 0;
-  $('#indexOutput').text(currIndex);
   showImage(currIndex);
 }
 
 $(function() {
 
   init();
+  $('.button').height($('#image-container').height());
 
 });

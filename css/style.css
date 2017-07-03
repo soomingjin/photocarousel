@@ -14,52 +14,45 @@
 }*/
 
 body {
-  overflow:auto;
-
   background-color: #c4d5e0;
 }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+  -webkit-user-select: none;  /* Safari */
+  -moz-user-select: none;  /* Firefox */
+  -ms-user-select: none;  /* Internet Explorer/Edge */
+  user-select: none;  /* Non-prefixed version, currently supported by Chrome and Opera */
+  -webkit-touch-callout: none;  /* iOS Safari */
+  -khtml-user-select: none;  /* Konqueror HTML */
 }
 
-.carousell #image-container{
-    width: 50%;
-    margin: auto;
-    padding: 10px;
+.carousell {
+  width: 75%;
+  margin: 0 auto;
+  /*padding: 0px 10px;*/
+}
 
+#image-container {
+  width: inherit;
+  margin: 0 10px;
+  /*padding: 0px 10px;*/
 }
 
 .button {
-    width: 10%;
+  width: 10%;
 
-    margin: 4px 2px;
-    padding: 15px 32px;
-
-    cursor: pointer;
-    transition-duration: 0.4s;
-    text-align: center;
-    text-decoration: none;
-
-    color: white;
-    border: none;
-    background-color: #1db2e0;
-
-    font-size: 16px;
-
-}
-
-#next {
+  cursor: pointer;
+  transition-duration: 0.4s;
   text-align: center;
+  text-decoration: none;
+  color: white;
+  border: none;
+  background-color: #1db2e0;
+  font-size: 16px;
 }
+
 
 .button:hover {
-    color: white;
-    background-color: #18a0c9;
+  color: white;
+  background-color: #18a0c9;
 }
