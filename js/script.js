@@ -20,34 +20,31 @@ var localImages = [
 // 'images/cate8.jpg'
 ];
 
-
-/**Controls how the left button behaves when clicked
- *@param {Number} index of image
- */
-function previous(currentIndex) {
-  // $('#output').text("Left Button Clicked");
-  var nextIndex = currentIndex;
-  if (currentIndex <= 0) {
-    nextIndex = localImages.length - 1;
-  } else {
-    nextIndex -= 1;
-  }
-  showImage(nextIndex);
-  return;
-}
-
 /**
- *Controls how the right button behaves when clicked
+ *Controls how the carousell buttons behave when clicked
  *@param {Number} index of image
  */
-function next(currentIndex) {
-  // $('#output').text("Right Button Clicked");
-  var nextIndex = currentIndex;
-  if (currentIndex >= (localImages.length - 1)) {
-    nextIndex = 0;
+function carousellButtonHandler(event){
+  //obtain the current index
+  //find the name of the button being pressed
+  var nextIndex = getImageIndex();
+  var buttonType = this.name;
+
+  //check which button is being pressed
+  if (buttonType === "next"){
+    if (nextIndex >= (localImages.length - 1)) {
+      nextIndex = 0;
+    } else {
+      nextIndex += 1;
+    }
   } else {
-    nextIndex += 1;
+    if (nextIndex <= 0) {
+      nextIndex = localImages.length - 1;
+    } else {
+      nextIndex -= 1;
+    }
   }
+
   showImage(nextIndex);
   return;
 }
@@ -64,7 +61,7 @@ function getImageIndex() {
 }
 
 /**
- *Modifies the source attribute of the container to display the next image
+ *Modifies the source attribute of the container to display an image
  *@param {Number} index of image
  */
 function showImage(index) {
@@ -72,9 +69,7 @@ function showImage(index) {
   var nextSource = localImages[index];
   var img = $('#image-container');
   img.attr('src', nextSource);
-  img.ready(function(){
-    $('.button').height($('#image-container').height());
-  });
+  // $('.carousellButton').height($('#image-container').height()); // supposed to dynamically change the height, but not in use anymore
   $('#indexOutput').text(index);
   return;
 }
@@ -87,11 +82,13 @@ function init() {
   var currIndex;
   currIndex = 0;
   showImage(currIndex);
+  //tag event handlers to buttons
+  $('.carousellButton').click(carousellButtonHandler);
+  $('.carousellButton').height($('#image-container').height());
 }
 
 $(function() {
 
   init();
-  $('.button').height($('#image-container').height());
 
 });

@@ -38,7 +38,7 @@ body {
   /*padding: 0px 10px;*/
 }
 
-.button {
+.carousellButton {
   width: 10%;
 
   cursor: pointer;
@@ -52,7 +52,7 @@ body {
 }
 
 
-.button:hover {
+.carousellButton:hover {
   color: white;
   background-color: #18a0c9;
 }
