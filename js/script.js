@@ -66,9 +66,13 @@ function getImageIndex() {
  */
 function showImage(index) {
   // var nextSource = images[index];
+
   var nextSource = localImages[index];
   var img = $('#image-container');
-  img.attr('src', nextSource);
+  img.hide('slide', { direction: "left" }, 100, function(){
+    img.attr('src', nextSource);
+  }).show('slide', { direction: "right" }, 100);
+  // img.show('slide', { direction: "right" }, 100);
   // $('.carousellButton').height($('#image-container').height()); // supposed to dynamically change the height, but not in use anymore
   $('#indexOutput').text(index);
   return;

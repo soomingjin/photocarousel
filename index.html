@@ -6,10 +6,13 @@
   <title>Photo Carousell</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"></link>
   <link rel='stylesheet' href="css/style.css"></link>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
   <script src='js/script.js'></script>
+  <script src='js/sequence.min.js'></script>
 
 </head>
 
@@ -17,14 +20,33 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Photo Carousell</a>
+        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span> Photo Carousell</a>
       </div>
     </div>
   </nav>
   <div class='carousell'>
-    <button class='carousellButton noselect' name='previous'>&lt;</button>
+    <button class='carousellButton noselect' name='previous'>
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </button>
+    <!-- <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul> -->
     <img id='image-container' src='images/cate2.jpeg'></img>
-    <button class='carousellButton noselect' name='next' >&gt;</button>
+    <!-- <div class='carousel-caption'>
+      <p>
+        Nice Cate!
+      </p>
+    </div> -->
+    <button class='right carousellButton noselect' name='next'>
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </button>
   </div>
   <!-- <div id='output'>Container for output</div> -->
   <div>CurrentIndex = <span id='indexOutput'>_</span></div>
