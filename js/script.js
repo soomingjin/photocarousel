@@ -10,28 +10,40 @@ var images = ['http://thecatapi.com/api/images/get.php?api_key=MTAx&id=cfc',
 ];
 
 var localImages = [
-// 'images/cate1.jpg',
-'images/cate2.jpeg',
-'images/cate3.jpeg',
-'images/cate4.jpg',
-// 'images/cate5.jpg',
-'images/cate6.jpg',
-'images/cate7.jpg',
-// 'images/cate8.jpg'
+  // 'images/cate1.jpg',
+  'images/cate2.jpeg',
+  'images/cate3.jpeg',
+  'images/cate4.jpg',
+  // 'images/cate5.jpg',
+  'images/cate6.jpg',
+  'images/cate7.jpg',
+  // 'images/cate8.jpg'
+];
+
+var imageCaptions = [
+  // "placeholder for caption",
+  "Curious grey kitten",
+  "Cat licking off the last bits of his meal from its paw",
+  "The cat stays still, keeping in mind not to startle its prey",
+  // "placeholder for caption",
+  "After destroying its toy, it looks for a new target",
+  "The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes",
+  // "placeholder for caption",
+
 ];
 
 /**
  *Controls how the carousell buttons behave when clicked
  *@param {Number} index of image
  */
-function carousellButtonHandler(event){
+function carousellButtonHandler(event) {
   //obtain the current index
   //find the name of the button being pressed
   var nextIndex = getImageIndex();
   var buttonType = this.name;
 
   //check which button is being pressed
-  if (buttonType === "next"){
+  if (buttonType === "next") {
     if (nextIndex >= (localImages.length - 1)) {
       nextIndex = 0;
     } else {
@@ -55,7 +67,7 @@ function carousellButtonHandler(event){
  *@return {Number} index of image
  */
 function getImageIndex() {
-  var img = $('#image-container');
+  var img = $('#cat-image');
   var source = img.attr('src');
   return localImages.indexOf(source);
 }
@@ -68,12 +80,19 @@ function showImage(index) {
   // var nextSource = images[index];
 
   var nextSource = localImages[index];
-  var img = $('#image-container');
-  img.hide('slide', { direction: "left" }, 100, function(){
-    img.attr('src', nextSource);
-  }).show('slide', { direction: "right" }, 100);
-  // img.show('slide', { direction: "right" }, 100);
-  // $('.carousellButton').height($('#image-container').height()); // supposed to dynamically change the height, but not in use anymore
+  var img = $('#cat-image');
+  var caption = $('.carousel-caption');
+  img.hide({
+    effect: 'fade',
+    duration: 100,
+    complete: function() {
+      img.attr('src', nextSource);
+      caption.text(imageCaptions[index]);
+    }
+  }).show({
+    effect: 'fade',
+    duration: 100,
+  });
   $('#indexOutput').text(index);
   return;
 }
@@ -88,7 +107,7 @@ function init() {
   showImage(currIndex);
   //tag event handlers to buttons
   $('.carousellButton').click(carousellButtonHandler);
-  $('.carousellButton').height($('#image-container').height());
+  $('.carousellButton').height($('#cat-image').height());
 }
 
 $(function() {

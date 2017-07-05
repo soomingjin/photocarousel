@@ -26,61 +26,50 @@ body {
   -khtml-user-select: none;  /* Konqueror HTML */
 }
 
+/* How do I center the elements? */
 .carousell {
-  width: 75%;
-  margin: 0 auto;
-  /*padding: 0px 10px;*/
+  position: relative;
 }
 
-#image-container {
-  width: inherit;
-  /*margin: 0 10px;*/
-  overflow: hidden;
-  /*padding: 0px 10px;*/
+.image-container {
+  position: absolute;\
+
+}
+
+.carousel-caption{
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  font: bold 12px/12px Helvetica, sans-serif;
+  background-color: rgba(0, 0, 0, 0.30);
 }
 
 .carousellButton {
+  z-index: 10;
   width: 10%;
-
+  position: absolute;
+  float: left;
   cursor: pointer;
   transition-duration: 0.4s;
   text-align: center;
   text-decoration: none;
   color: white;
   border: none;
-  background-color: rgba(29, 178, 224, 0.75);
-  font-size: 16px;
-}
-/*UI REALLY NEEDS WORK!*/
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
 
-/*.carousellButton {
-    position: absolute;
-    /*top: 0;*/
-    /*bottom: 0;*/
-    /*
-    float: left;
-    width: 15%;
-    font-size: 20px;
-    color: #fff;
-    border: 0;
-    text-align: center;
-    background-color: rgba(0,0,0,0);
-    filter: alpha(opacity=50);
-    opacity: .5;
 }
-.carousellButton.right {
-    float: right;
-    background-image: -webkit-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
-    background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
-    background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.5)));
-    background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
-    background-repeat: repeat-x;
-}*/
+.carousellButton.right{
+  right: 0;
+}
+.carousellButton.left{
+  left: 0;
+}
 
-/*.carousel-caption{*/
-/*}*/
 .carousellButton:hover {
   color: white;
-  background-color: #18a0c9;
+  background-color: rgba(0, 0, 0, 0.5);
 }
