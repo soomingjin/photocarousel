@@ -76,7 +76,6 @@ $(function() {
         complete: function() {
           $img.attr("src", nextSource);
           $caption.text(images[index].caption);
-          $(".carousell-button").height($img.height());
         }
       })
       .show({
