@@ -17,6 +17,18 @@ body {
   background-color: #c4d5e0;
 }
 
+h1 {
+  padding: 4px;
+  font: bold 36px/36px Helvetica, sans-serif;
+  background-color: rgba(0, 0, 0, 0.30);
+  color: white;
+}
+h2 {
+  padding: 4px;
+  font: bold 24px/24px Helvetica, sans-serif;
+  background-color: rgba(0, 0, 0, 0.30);
+  color: white;
+}
 .noselect {
   -webkit-user-select: none;  /* Safari */
   -moz-user-select: none;  /* Firefox */
@@ -26,14 +38,23 @@ body {
   -khtml-user-select: none;  /* Konqueror HTML */
 }
 
-/* How do I center the elements? */
 .carousell {
   position: relative;
+  width: 100%;
 }
 
 .image-container {
-  position: absolute;\
+  position: absolute;
+  max-width: 60%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px double black
+}
 
+#cat-image {
+  width: 100%;
 }
 
 .carousel-caption{
@@ -43,13 +64,13 @@ body {
   left: 0;
   width: 100%;
   color: white;
-  font: bold 12px/12px Helvetica, sans-serif;
+  font: bold 16px/16px Helvetica, sans-serif;
   background-color: rgba(0, 0, 0, 0.30);
 }
 
 .carousellButton {
   z-index: 10;
-  width: 10%;
+  width: 25%;
   position: absolute;
   float: left;
   cursor: pointer;
@@ -64,12 +85,20 @@ body {
 }
 .carousellButton.right{
   right: 0;
+  text-align: right;
+  padding-right: 10px;
 }
 .carousellButton.left{
   left: 0;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .carousellButton:hover {
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.carousellButton:focus {
+  outline: none;
 }
