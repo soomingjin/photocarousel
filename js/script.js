@@ -1,7 +1,7 @@
 $(function() {
   // image array to store all the properties of the cat images, namely the path
   // and the caption.
-  var images = [{
+  const images = [{
     path: "images/cate2.jpeg",
     caption: "Curious grey kitten"
   },{
@@ -26,9 +26,9 @@ $(function() {
   function carousellButtonHandler(event) {
     //obtain the current index
     //find the name of the button being pressed
-    var nextIndex = getImageIndex();
-    var buttonType = event.target.name;
-    var $img = $('#cat-image');
+    let nextIndex = getImageIndex();
+    const buttonType = event.target.name;
+    const $img = $('#cat-image');
 
     //check which button is being pressed
     if (buttonType === "next") {
@@ -55,7 +55,7 @@ $(function() {
    *@return {Number} index of image
    */
   function getImageIndex() {
-    var $img = $("#cat-image");
+    const $img = $("#cat-image");
     return $img.data('current-index');
   }
 
@@ -64,9 +64,9 @@ $(function() {
    *@param {Number} index of image
    */
   function showImage(index) {
-    var nextSource = images[index].path;
-    var $img = $("#cat-image");
-    var $caption = $(".carousel-caption");
+    const nextSource = images[index].path;
+    const $img = $("#cat-image");
+    const $caption = $(".carousel-caption");
     $img
       .hide({
         effect: "fade",
@@ -86,15 +86,15 @@ $(function() {
   //Run this function when the website is loaded for the first time
   //To show the first image in the array
   function init() {
-    var currIndex = 0;
-    var $img = $("#cat-image");
+    const currIndex = 0;
+    const $img = $("#cat-image");
     $img.data('current-index', currIndex);
     //show first image
     showImage($img.data('current-index'));
     //tag event handlers to buttons
-    $(".carousellButton").click(carousellButtonHandler);
-    $(".carousellButton").height($img.height());
+    $(".carousell-button").click(carousellButtonHandler);
+    $(".carousell-button").height($img.height());
   }
-  
+
   init();
 });

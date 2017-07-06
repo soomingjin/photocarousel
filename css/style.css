@@ -19,37 +19,45 @@ body {
 
 h1 {
   padding: 4px;
-  font: bold 36px/36px Helvetica, sans-serif;
-  background-color: rgba(0, 0, 0, 0.30);
+
   color: white;
+  background-color: rgba(0, 0, 0, 0.30);
+
+  font: bold 36px/36px Helvetica, sans-serif;
 }
 h2 {
   padding: 4px;
-  font: bold 24px/24px Helvetica, sans-serif;
-  background-color: rgba(0, 0, 0, 0.30);
+
   color: white;
+  background-color: rgba(0, 0, 0, 0.30);
+
+  font: bold 24px/24px Helvetica, sans-serif;
 }
 .noselect {
   -webkit-user-select: none;  /* Safari */
   -moz-user-select: none;  /* Firefox */
   -ms-user-select: none;  /* Internet Explorer/Edge */
   user-select: none;  /* Non-prefixed version, currently supported by Chrome and Opera */
+
   -webkit-touch-callout: none;  /* iOS Safari */
   -khtml-user-select: none;  /* Konqueror HTML */
 }
 
 .carousell {
   position: relative;
+
   width: 100%;
 }
 
 .image-container {
   position: absolute;
-  max-width: 60%;
-  left: 0;
   right: 0;
-  margin-left: auto;
+  left: 0;
+
+  max-width: 60%;
   margin-right: auto;
+  margin-left: auto;
+
   border: 1px double black
 }
 
@@ -62,43 +70,54 @@ h2 {
   z-index: 0;
   bottom: 0;
   left: 0;
+
   width: 100%;
+
   color: white;
-  font: bold 16px/16px Helvetica, sans-serif;
   background-color: rgba(0, 0, 0, 0.30);
+
+  font: bold 16px/16px Helvetica, sans-serif;
 }
 
-.carousellButton {
+.carousell-button {
+  position: absolute;
   z-index: 10;
-  width: 25%;
-  position: absolute;
+
   float: left;
+
+  width: 25%;
+  padding: 0;
+
   cursor: pointer;
   transition-duration: 0.4s;
   text-align: center;
   text-decoration: none;
+
   color: white;
   border: none;
-  padding: 0;
   background-color: rgba(0, 0, 0, 0);
 
 }
-.carousellButton.right{
+.carousell-button.right{
   right: 0;
-  text-align: right;
+
   padding-right: 10px;
+
+  text-align: right;
 }
-.carousellButton.left{
+.carousell-button.left{
   left: 0;
-  text-align: left;
+
   padding-left: 10px;
+
+  text-align: left;
 }
 
-.carousellButton:hover {
+.carousell-button:hover {
   color: white;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.carousellButton:focus {
+.carousell-button:focus {
   outline: none;
 }
