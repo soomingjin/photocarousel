@@ -19,6 +19,8 @@ $(function() {
   }
   ];
 
+
+
   /**
    *Controls how the carousell buttons behave when clicked
    *@param {Number} index of image
@@ -74,6 +76,7 @@ $(function() {
         complete: function() {
           $img.attr("src", nextSource);
           $caption.text(images[index].caption);
+          $(".carousell-button").height($img.height());
         }
       })
       .show({
@@ -93,7 +96,6 @@ $(function() {
     showImage($img.data('current-index'));
     //tag event handlers to buttons
     $(".carousell-button").click(carousellButtonHandler);
-    $(".carousell-button").height($img.height());
   }
 
   init();
