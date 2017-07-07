@@ -1,4 +1,4 @@
-$(function() {
+$(() => {
   // image array to store all the properties of the cat images, namely the path
   // and the caption.
   const images = [{
@@ -73,15 +73,18 @@ $(function() {
       .hide({
         effect: "fade",
         duration: 100,
-        complete: function() {
+        complete: () => {
           $img.attr("src", nextSource);
           $caption.text(images[index].caption);
+          // dictate the height of the button to be the same aas the image
+          $('.carousell-button').height($img.height());
         }
       })
       .show({
         effect: "fade",
         duration: 100
       });
+
     return;
   }
 
