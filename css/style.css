@@ -17,6 +17,27 @@ body {
   background-color: #c4d5e0;
 }
 
+/* Style navbar*/
+
+.topnav {
+  background-color: rgb(208, 208, 208);
+  overflow: hidden;
+}
+
+.topnav a {
+  text-decoration: none;
+  display: block;
+  color: white;
+  padding: 10px 15px;
+  font: bold 24px/24px Helvetica, sans-serif;
+
+}
+
+.topnav a:hover{
+  text-decoration: none;
+}
+
+
 h1 {
   padding: 4px;
 
@@ -25,6 +46,7 @@ h1 {
 
   font: bold 36px/36px Helvetica, sans-serif;
 }
+
 h2 {
   padding: 4px;
 
@@ -32,6 +54,10 @@ h2 {
   background-color: rgba(0, 0, 0, 0.30);
 
   font: bold 24px/24px Helvetica, sans-serif;
+}
+p {
+  background-color: white;
+  padding: 10px;
 }
 .noselect {
   -webkit-user-select: none;  /* Safari */
@@ -43,7 +69,7 @@ h2 {
   -khtml-user-select: none;  /* Konqueror HTML */
 }
 
-.carousell {
+.photocarousel {
   position: relative;
 
   width: 100%;
@@ -54,35 +80,52 @@ h2 {
   right: 0;
   left: 0;
 
-  max-width: 75%;
+  max-width: 50%;
   margin-right: auto;
   margin-left: auto;
   border: 1px double black;
 }
 
-#cat-image {
-  width: 100%;
+.wrapper {
+  overflow: hidden;
+  width: inherit;
 }
 
-.carousel-caption{
+.cat-image {
+  right: 100%;
+  width: 100%;
+  display: none;
+}
+
+.active{
+  display: block;
+}
+
+
+
+.photocarousel-caption{
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   bottom: 0;
   left: 0;
 
   width: 100%;
+  padding-bottom: 20px;
+  padding-top: 20px;
 
   color: white;
   background-color: rgba(0, 0, 0, 0.30);
+  text-align: center;
 
   font: bold 16px/16px Helvetica, sans-serif;
 }
 
-.carousell-button {
+.photocarousel-button {
   position: absolute;
   z-index: 10;
 
   width: 25%;
+  height: 100%;
   padding: 0;
 
   cursor: pointer;
@@ -95,14 +138,14 @@ h2 {
   background-color: rgba(0, 0, 0, 0);
 
 }
-.carousell-button.right{
+.photocarousel-button.right{
   right: 0;
 
   padding-right: 10px;
 
   text-align: right;
 }
-.carousell-button.left{
+.photocarousel-button.left{
   left: 0;
 
   padding-left: 10px;
@@ -112,11 +155,11 @@ h2 {
 
 }
 
-.carousell-button:hover {
+.photocarousel-button:hover {
   color: white;
   background-color: rgba(0, 0, 0, 0.1);
 }
-.carousell-button.left:hover {
+.photocarousel-button.left:hover {
   background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
@@ -124,7 +167,7 @@ h2 {
 }
 
 
-.carousell-button.right:hover {
+.photocarousel-button.right:hover {
   background: -webkit-linear-gradient(-90deg, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(-90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(-90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
@@ -132,6 +175,6 @@ h2 {
 }
 
 
-.carousell-button:focus {
+.photocarousel-button:focus {
   outline: none;
 }
