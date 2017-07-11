@@ -11,29 +11,28 @@
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-  <script src='js/sequence.min.js'></script>
   <script src='js/script.js'></script>
 
 </head>
 
 <body>
   <nav class="topnav">
-    <a href="#"><span class="glyphicon glyphicon-home"></span> Photo Carousel</a>
+    <a href="#"><span class="glyphicon glyphicon-home"></span> PHOTO CAROUSEL</a>
   </nav>
   <h1>Photo Carousel</h1>
-  <h2>Description</h2>
   <div class='description'>
+    <h2>Description</h2>
     <p>
       An image gallery of cats caught in the act. Click the left button to navigate to the previous cat or click the right button to navigate to the next cat.
     </p>
   </div>
-  <h2>Fetch new images</h2>
-  <div>
+  <div class='fetch-image'>
+    <h2>Fetch new images</h2>
     <form class='fetch-image-form' action="">
       <div class="input-group">
-        <input type="text" class="form-control" name='search-term' placeholder="Search">
+        <input type="text" class="form-control" name='search-term' placeholder="Coming soon...">
         <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
+          <button class="btn btn-default" type="submit" disabled=true;>
               <i class="glyphicon glyphicon-search"></i>
             </button>
         </div>
@@ -41,7 +40,7 @@
     </form>
   </div>
 
-  <h2>Display</h2>
+
   <div class='image-container'>
     <button class='left photocarousel-button noselect' name='previous'>
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -51,25 +50,26 @@
       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </button>
-    <div class="wrapper">
-      <div class='cat-image active'>
-        <img class='cat-image' src='images/cate2.jpeg'></img>
-      </div>
-      <div class='cat-image'>
-        <img class='cat-image' src='images/cate3.jpeg'></img>
-      </div>
-      <div class='cat-image'>
-        <img class='cat-image' src='images/cate4.jpg'></img>
-      </div>
-      <div class='cat-image'>
-        <img class='cat-image' src='images/cate6.jpg'></img>
-      </div>
-      <div class='cat-image'>
-        <img class='cat-image' src='images/cate7.jpg'></img>
-      </div>
-
+    <div class='cat-div'>
+      <img class='cat-image' src='images/cate2.jpeg'></img>
+      <div class='photocarousel-caption'>Curious grey kitten</div>
     </div>
-    <div class='photocarousel-caption'>Caption for cate</div>
+    <div class='cat-div'>
+      <img class='cat-image' src='images/cate3.jpeg'></img>
+      <div class='photocarousel-caption'>Cat licking off the last bits of his meal from its paw</div>
+    </div>
+    <div class='cat-div'>
+      <img class='cat-image' src='images/cate4.jpg'></img>
+      <div class='photocarousel-caption'>The cat stays still, keeping in mind not to startle its prey</div>
+    </div>
+    <div class='cat-div'>
+      <img class='cat-image' src='images/cate6.jpg'></img>
+      <div class='photocarousel-caption'>After destroying its toy, it looks for a new target</div>
+    </div>
+    <div class='cat-div'>
+      <img class='cat-image' src='images/cate7.jpg'></img>
+      <div class='photocarousel-caption'>The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes</div>
+    </div>
   </div>
 
   <div>

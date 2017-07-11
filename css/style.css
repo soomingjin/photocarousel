@@ -1,34 +1,37 @@
-/*h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, small {
-
+h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, small {
   margin: 0;
-
   padding: 0;
 
   border: 0;
-
   outline: 0;
+  background: transparent;
 
   font-size: 100%;
-
-  background: transparent;
-}*/
+}
 
 body {
-  background-color: #c4d5e0;
+  background-color: #f4f4f4;
 }
 
 /* Style navbar*/
 
 .topnav {
-  background-color: rgb(208, 208, 208);
   overflow: hidden;
+
+  text-align: center;
+
+  background-color: #f4f4f4;
 }
 
 .topnav a {
-  text-decoration: none;
   display: block;
-  color: white;
+
   padding: 10px 15px;
+
+  text-decoration: none;
+
+  color: black;
+
   font: bold 24px/24px Helvetica, sans-serif;
 
 }
@@ -36,29 +39,61 @@ body {
 .topnav a:hover{
   text-decoration: none;
 }
+h1, h2, h3, h4, h5, h6 {
+  max-width: 50%;
+  margin: 10px auto;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 5px 20px;
 
+  text-align: center;
+
+  color: black;
+  background-color: rgba(0, 0, 0, 0.10);
+}
 
 h1 {
-  padding: 4px;
+  max-width: none;
 
-  color: white;
-  background-color: rgba(0, 0, 0, 0.30);
-
-  font: bold 36px/36px Helvetica, sans-serif;
+  font: 36px/36px Helvetica, sans-serif;
 }
 
 h2 {
-  padding: 4px;
-
-  color: white;
-  background-color: rgba(0, 0, 0, 0.30);
-
-  font: bold 24px/24px Helvetica, sans-serif;
+  font: 24px/24px Helvetica, sans-serif;
 }
 p {
-  background-color: white;
+  position: relative;
+
+  max-width: 50%;
+  margin-right: auto;
+  margin-left: auto;
   padding: 10px;
 }
+
+div {
+  margin: auto;
+
+  text-align: center;
+}
+
+.description {
+  left: 25%;
+
+  float: left;
+
+  max-width: 50%;
+}
+
+.fetch-image {
+  float: right;
+
+  max-width: 50%;
+}
+
+.input-group {
+  max-width: 50%;
+}
+
 .noselect {
   -webkit-user-select: none;  /* Safari */
   -moz-user-select: none;  /* Firefox */
@@ -74,33 +109,57 @@ p {
 
   width: 100%;
 }
-
 .image-container {
   position: relative;
   right: 0;
   left: 0;
 
-  max-width: 50%;
+  float: none;
+  clear: both;
+  overflow: hidden;
+
+  box-sizing: content-box; /* use content box to consider the content for sizing only */
+  width: 525px;
+  height: 350px;
+  margin-top: 10px;
   margin-right: auto;
   margin-left: auto;
-  border: 1px double black;
+  padding: 0;
+
+  border: 1px solid black;
 }
 
-.wrapper {
-  overflow: hidden;
-  width: inherit;
+.cat-div {
+  position: absolute;
+  left: 525px;
+
+  height: inherit;
+
 }
 
-.cat-image {
-  right: 100%;
-  width: 100%;
-  display: none;
+.active {
+  left: 0px;
 }
 
-.active{
-  display: block;
+@keyframes hidenext {
+  from {left: 0;}
+  to {left: -525px;}
 }
 
+@keyframes hideprevious {
+  from {left: 0;}
+  to {left: 525px;}
+}
+
+@keyframes shownext {
+  from {left: 525;}
+  to {left: 0px;}
+}
+
+@keyframes showprevious {
+  from {left: -525px;}
+  to {left: 0;}
+}
 
 
 .photocarousel-caption{
@@ -110,12 +169,14 @@ p {
   left: 0;
 
   width: 100%;
-  padding-bottom: 20px;
+  max-width: none;
   padding-top: 20px;
+  padding-bottom: 20px;
+
+  text-align: center;
 
   color: white;
   background-color: rgba(0, 0, 0, 0.30);
-  text-align: center;
 
   font: bold 16px/16px Helvetica, sans-serif;
 }
@@ -160,18 +221,18 @@ p {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .photocarousel-button.left:hover {
-  background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 0)); /* Standard syntax */
+  background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* Standard syntax */
 }
 
 
 .photocarousel-button.right:hover {
-  background: -webkit-linear-gradient(-90deg, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(-90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(-90deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, 0)); /* Standard syntax */
+  background: -webkit-linear-gradient(-90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* Standard syntax */
 }
 
 
