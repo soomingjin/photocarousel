@@ -5,7 +5,7 @@ This side project is a way for me to test and develop some of my web dev skills.
 The website should have a container to display a cat image and there should be buttons by its left and right that can cycle the images in it.
 
 # Demo
-[Link here to demo](https://soomingjin.github.io/photocarousell/)
+[Link here to demo](https://soomingjin.github.io/photocarousel/)
 
 
 # Dependencies
