@@ -1,4 +1,4 @@
-# photocarousell
+# photocarousel
 
 This side project is a way for me to test and develop some of my web dev skills.
 
