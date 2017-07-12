@@ -76,7 +76,6 @@ p {
 
 div {
   margin: auto;
-  padding: auto;
   text-align: center;
 }
 
@@ -122,8 +121,10 @@ div {
   clear: both;
   overflow: hidden;
 
-  box-sizing: content-box; /* use content box to consider the content for sizing only */
-  width: 525px;
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box; /* use content box to consider the content for sizing only */
+  max-width: 525px;
   height: 350px;
   margin: 40px auto;
 
@@ -133,7 +134,8 @@ div {
   position: absolute;
   left: 100%;
 
-  height: inherit;
+  max-width: 100%;
+  height: auto;
 
 }
 

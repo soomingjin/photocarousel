@@ -10,6 +10,7 @@ $(() => {
    * handles the logic for clicking the buttons
    */
   function photocarouselButtonHandler(event) {
+    console.log('first');
 
     const buttonType = event.target.name;
     const $catdivs = $('.cat-div');
@@ -50,8 +51,7 @@ $(() => {
       animateSlide($active, $nextSlide, buttonType);
     }
 
-
-
+    return;
   }
   /*
    * Animates the carousel sliding
@@ -60,6 +60,7 @@ $(() => {
   function animateSlide($active, $nextSlide, command) {
     $photocarouselbutton = $(".photocarousel-button");
     $photocarouselbutton.off('click');
+    console.log('off - remove both event handler');
     if (command === "next") {
       $active.animate({
         left: "-100%"
@@ -78,6 +79,7 @@ $(() => {
         complete: function() {
           $(this).toggleClass('active');
           $photocarouselbutton.one('click', photocarouselButtonHandler);
+          console.log("re tag");
           $(this).removeAttr('style');
           return;
         }
@@ -102,6 +104,7 @@ $(() => {
         complete: function() {
           $(this).toggleClass('active');
           $photocarouselbutton.one('click', photocarouselButtonHandler);
+          console.log("re tag");
           $(this).removeAttr('style');
           return;
         }
@@ -126,6 +129,7 @@ $(() => {
 
     render(startingIndex);
     $(".photocarousel-button").one('click', photocarouselButtonHandler);
+    console.log('One');
     // $('.fetch-image-form').submit(fetchImageHandler);
     return;
   }
