@@ -64,7 +64,7 @@ $(() => {
       $active.animate({
         left: "-100%"
       }, {
-        duration: 500,
+        duration: 300,
         complete: function() {
           $(this).removeAttr('style');
           $(this).toggleClass('active');
@@ -74,7 +74,7 @@ $(() => {
       $nextSlide.animate({
         left: "0px"
       }, {
-        duration: 500,
+        duration: 300,
         complete: function() {
           $(this).toggleClass('active');
           $photocarouselbutton.one('click', photocarouselButtonHandler);
@@ -86,7 +86,7 @@ $(() => {
       $active.animate({
         left: "100%"
       }, {
-        duration: 500,
+        duration: 300,
         complete: function() {
           $(this).toggleClass('active');
           $(this).removeAttr('style');
@@ -98,7 +98,7 @@ $(() => {
       }, duration = 0).animate({
         left: "0px"
       }, {
-        duration: 500,
+        duration: 300,
         complete: function() {
           $(this).toggleClass('active');
           $photocarouselbutton.one('click', photocarouselButtonHandler);
