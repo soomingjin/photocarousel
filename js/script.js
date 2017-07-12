@@ -31,7 +31,7 @@ $(() => {
         nextIndex -= 1;
       }
     }
-
+    // alert(nextIndex);
     $imagecontainer.data('current-index', nextIndex);
     render(nextIndex, buttonType);
     return;
@@ -59,20 +59,55 @@ $(() => {
    */
   function animateSlide($active, $nextSlide, command) {
     $photocarouselbutton = $(".photocarousel-button");
-    $active.css({
-      "animation-name": "hide" + command,
-      "animation-duration": "1s"
-    });
-    $nextSlide.css({
-      "animation-name": "show" + command,
-      "animation-duration": "1s"
-    });
-    $photocarouselbutton.unbind('click');
-    setTimeout(() => {
-      $active.toggleClass('active');
-      $nextSlide.toggleClass('active');
-      $photocarouselbutton.click(photocarouselButtonHandler);
-    }, 1000);
+    $photocarouselbutton.off('click');
+    if (command === "next") {
+      $active.animate({
+        left: "-100%"
+      }, {
+        duration: 500,
+        complete: function() {
+          $(this).removeAttr('style');
+          $(this).toggleClass('active');
+          return;
+        }
+      });
+      $nextSlide.animate({
+        left: "0px"
+      }, {
+        duration: 500,
+        complete: function() {
+          $(this).toggleClass('active');
+          $photocarouselbutton.one('click', photocarouselButtonHandler);
+          $(this).removeAttr('style');
+          return;
+        }
+      });
+    } else {
+      $active.animate({
+        left: "100%"
+      }, {
+        duration: 500,
+        complete: function() {
+          $(this).toggleClass('active');
+          $(this).removeAttr('style');
+          return;
+        }
+      });
+      $nextSlide.animate({
+        left: "-100%"
+      }, duration = 0).animate({
+        left: "0px"
+      }, {
+        duration: 500,
+        complete: function() {
+          $(this).toggleClass('active');
+          $photocarouselbutton.one('click', photocarouselButtonHandler);
+          $(this).removeAttr('style');
+          return;
+        }
+      });
+    }
+
     return;
   }
   // feature not ready yet
@@ -90,7 +125,7 @@ $(() => {
     $('.image-container').data('current-index', startingIndex);
 
     render(startingIndex);
-    $(".photocarousel-button").click(photocarouselButtonHandler);
+    $(".photocarousel-button").one('click', photocarouselButtonHandler);
     // $('.fetch-image-form').submit(fetchImageHandler);
     return;
   }
