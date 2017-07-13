@@ -55,8 +55,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   letter-spacing: 10px;
-  float: left;
-  padding-left: 10%;
   font: 36px/36px Helvetica, sans-serif;
 }
 
@@ -84,9 +82,6 @@ div {
 }
 
 .fetch-image {
-  float: right;
-
-  max-width: 50%;
   padding: 5px 20px;
   margin: 40px auto;
 }
@@ -107,10 +102,17 @@ div {
   -khtml-user-select: none;  /* Konqueror HTML */
 }
 
-.photocarousel {
-  position: relative;
+@media (max-width: 768px){
+.content {
+    margin: auto;
+    padding: 20px 40px;
+    width: auto;
+}
 
-  width: 100%;
+.content {
+  margin: auto;
+    padding: 20px;
+    width: 600px;
 }
 .image-container {
   position: relative;
@@ -124,14 +126,35 @@ div {
     -webkit-box-sizing: content-box;
        -moz-box-sizing: content-box;
             box-sizing: content-box; /* use content box to consider the content for sizing only */
-  max-width: 525px;
+  width: 525px;
   height: 350px;
+  /*width: 100%;
+  height: auto;*/
   margin: 40px auto;
+  clear: both;
 
+}
+.image-container:before,
+.image-container:after {
+  display: table;
+  content: '';
+}
+.image-container:after {
+  clear:both;
+}
+
+.cat-div-clone {
+  position: relative;
+  display: inline;
+  z-index: 0;
+  width: 50%;
 }
 
 .cat-div {
+  z-index: 1;
   position: absolute;
+  display: flex;
+  float: left;
   left: 100%;
 
   max-width: 100%;

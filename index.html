@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <title>Photo Carousel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"></link>
   <link rel='stylesheet' href="css/style.css"></link>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
@@ -17,68 +17,87 @@
 </head>
 
 <body>
-  <nav class="topnav">
-    <a href="#"><span class="glyphicon glyphicon-home"></span> PHOTO CAROUSEL</a>
-  </nav>
-  <h1 class='carousel-title'>PHOTOCAROUSEL</h1>
-  <div class='fetch-image'>
-    <form class='fetch-image-form' action="">
-      <div class="input-group">
-        <input type="text" class="form-control" name='search-term' placeholder="Coming soon...">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit" disabled=true;>
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-        </div>
+
+  <header class="container-fluid">
+    <nav class="topnav">
+      <a href="#"><span class="glyphicon glyphicon-home"></span> PHOTO CAROUSEL</a>
+    </nav>
+      <h1 class='carousel-title col-sm-6'>PHOTOCAROUSEL</h1>
+      <div class='fetch-image col-sm-6'>
+        <form class='fetch-image-form' action="">
+          <div class="input-group">
+            <input type="text" class="form-control" name='search-term' placeholder="Coming soon...">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit" disabled=true;>
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
+  </header>
 
+<div class='content'>
 
-  <div class='image-container'>
-    <button class='left photocarousel-button noselect' name='previous'>
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+  <div class="container-fluid">
+    <div class='image-container row clearfix'>
+      <button class='left photocarousel-button noselect' name='previous'>
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </button>
+      <button class='right photocarousel-button noselect' name='next'>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
       </button>
-    <button class='right photocarousel-button noselect' name='next'>
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </button>
-    <div class='cat-div'>
-      <img class='cat-image' src='images/cate2.jpeg'></img>
-      <!-- <div class='photocarousel-caption'>Curious grey kitten</div> -->
-    </div>
-    <div class='cat-div'>
-      <img class='cat-image' src='images/cate3.jpeg'></img>
-      <!-- <div class='photocarousel-caption'>Cat licking off the last bits of his meal from its paw</div> -->
-    </div>
-    <div class='cat-div'>
-      <img class='cat-image' src='images/cate4.jpg'></img>
-      <!-- <div class='photocarousel-caption'>The cat stays still, keeping in mind not to startle its prey</div> -->
-    </div>
-    <div class='cat-div'>
-      <img class='cat-image' src='images/cate6.jpg'></img>
-      <!-- <div class='photocarousel-caption'>After destroying its toy, it looks for a new target</div> -->
-    </div>
-    <div class='cat-div'>
-      <img class='cat-image' src='images/cate7.jpg'></img>
-      <!-- <div class='photocarousel-caption'>The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes</div> -->
+      <div class='cat-div'>
+        <img class='cat-image' src='images/cate2.jpeg'></img>
+        <!-- <div class='photocarousel-caption'>Curious grey kitten</div> -->
+      </div>
+      <div class='cat-div'>
+        <img class='cat-image' src='images/cate3.jpeg'></img>
+        <!-- <div class='photocarousel-caption'>Cat licking off the last bits of his meal from its paw</div> -->
+      </div>
+      <div class='cat-div'>
+        <img class='cat-image' src='images/cate4.jpg'></img>
+        <!-- <div class='photocarousel-caption'>The cat stays still, keeping in mind not to startle its prey</div> -->
+      </div>
+      <div class='cat-div'>
+        <img class='cat-image' src='images/cate6.jpg'></img>
+        <!-- <div class='photocarousel-caption'>After destroying its toy, it looks for a new target</div> -->
+      </div>
+      <div class='cat-div'>
+        <img class='cat-image' src='images/cate7.jpg'></img>
+        <!-- <div class='photocarousel-caption'>The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes</div> -->
+      </div>
+
+        <!-- <div class='cat-div-clone'>
+          <img class='cat-image' src='images/cate2.jpeg'></img>
+        </div> -->
     </div>
   </div>
 
-  <div class='description'>
-    <h2>DESCRIPTION</h2>
-    <p>
-      An image gallery of cats caught in the act. Click the left button to navigate to the previous cat or click the right button to navigate to the next cat.
-    </p>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class='description'>
+        <h2>DESCRIPTION</h2>
+        <p>
+          An image gallery of cats caught in the act. Click the left button to navigate to the previous cat or click the right button to navigate to the next cat.
+        </p>
+      </div>
+      <div>
+        <h2>NEW SECTION</h2>
+        <p>
+          Lorem ipsum dolor sit amet, elit partem vivendo in nec, sit at graeci gloriatur. Vero corrumpit vulputate ad cum, et nam dicat habemus. Sea an mazim dolor consequuntur. Nusquam ponderum inciderint et pri, in his appareat pertinax percipitur, ipsum tollit
+          ad vim. Cetero intellegat constituto in sed, est solet mucius corrumpit an, ea per melius molestie neglegentur.
+        </p>
+      </div>
+    </div>
+
   </div>
-  <div>
-    <h2>NEW SECTION</h2>
-    <p>
-      Lorem ipsum dolor sit amet, elit partem vivendo in nec, sit at graeci gloriatur. Vero corrumpit vulputate ad cum, et nam dicat habemus. Sea an mazim dolor consequuntur. Nusquam ponderum inciderint et pri, in his appareat pertinax percipitur, ipsum tollit
-      ad vim. Cetero intellegat constituto in sed, est solet mucius corrumpit an, ea per melius molestie neglegentur.
-    </p>
-  </div>
+</div>
+
 </body>
 
 </html>
