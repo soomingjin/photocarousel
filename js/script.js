@@ -20,18 +20,21 @@ $(() => {
 
     //check which button is being pressed and determine the next index
     if (buttonType === "next") {
+      console.log("Next button pressed");
       if (nextIndex >= $catdivs.length - 1) {
         nextIndex = 0;
       } else {
         nextIndex += 1;
       }
     } else {
+      console.log("Previous button pressed");
       if (nextIndex <= 0) {
         nextIndex = $catdivs.length - 1;
       } else {
         nextIndex -= 1;
       }
     }
+    console.log('nextIndex = ' + nextIndex);
     // alert(nextIndex);
     $imagecontainer.data('current-index', nextIndex);
     render(nextIndex, buttonType);
@@ -41,6 +44,7 @@ $(() => {
    * Handles the logic of the next slide to be displayed
    */
   function render(nextIndex, buttonType = 'init') {
+    console.log("render");
     const $catdivs = $('.cat-div');
     const $active = $('.active');
     const $nextSlide = $catdivs.eq(nextIndex);
