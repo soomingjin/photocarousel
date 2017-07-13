@@ -10,9 +10,7 @@ $(() => {
    * handles the logic for clicking the buttons
    */
   function photocarouselButtonHandler(event) {
-    console.log('first');
-
-    const buttonType = event.target.name;
+    const buttonType = event.currentTarget.name;
     const $catdivs = $('.cat-div');
     $imagecontainer = $('.image-container');
     const currentIndex = $imagecontainer.data('current-index');
@@ -20,22 +18,18 @@ $(() => {
 
     //check which button is being pressed and determine the next index
     if (buttonType === "next") {
-      console.log("Next button pressed");
       if (nextIndex >= $catdivs.length - 1) {
         nextIndex = 0;
       } else {
         nextIndex += 1;
       }
     } else {
-      console.log("Previous button pressed");
       if (nextIndex <= 0) {
         nextIndex = $catdivs.length - 1;
       } else {
         nextIndex -= 1;
       }
     }
-    console.log('nextIndex = ' + nextIndex);
-    // alert(nextIndex);
     $imagecontainer.data('current-index', nextIndex);
     render(nextIndex, buttonType);
     return;
@@ -44,11 +38,9 @@ $(() => {
    * Handles the logic of the next slide to be displayed
    */
   function render(nextIndex, buttonType = 'init') {
-    console.log("render");
     const $catdivs = $('.cat-div');
     const $active = $('.active');
     const $nextSlide = $catdivs.eq(nextIndex);
-
     if (buttonType === 'init') {
       $('.cat-div').eq(nextIndex).toggleClass('active');
     } else {
@@ -64,7 +56,6 @@ $(() => {
   function animateSlide($active, $nextSlide, command) {
     $photocarouselbutton = $(".photocarousel-button");
     $photocarouselbutton.off('click');
-    console.log('off - remove both event handler');
     if (command === "next") {
       $active.animate({
         left: "-100%"
@@ -83,7 +74,6 @@ $(() => {
         complete: function() {
           $(this).toggleClass('active');
           $photocarouselbutton.one('click', photocarouselButtonHandler);
-          console.log("re tag");
           $(this).removeAttr('style');
           return;
         }
@@ -108,7 +98,6 @@ $(() => {
         complete: function() {
           $(this).toggleClass('active');
           $photocarouselbutton.one('click', photocarouselButtonHandler);
-          console.log("re tag");
           $(this).removeAttr('style');
           return;
         }
@@ -133,7 +122,6 @@ $(() => {
 
     render(startingIndex);
     $(".photocarousel-button").one('click', photocarouselButtonHandler);
-    console.log('One');
     // $('.fetch-image-form').submit(fetchImageHandler);
     return;
   }
