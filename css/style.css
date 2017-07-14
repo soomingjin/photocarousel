@@ -1,75 +1,20 @@
-h1, h2, h3, h4, h5, h6, p, a, ul, ol, li, small {
-  margin: 0;
-  padding: 0;
-
-  border: 0;
-  outline: 0;
-  background: transparent;
-
-  font-size: 100%;
-}
 
 body {
   background-color: #f4f4f4;
 }
 
-/* Style navbar*/
-
-.topnav {
-  letter-spacing: 2px;
-  overflow: hidden;
-
-  text-align: center;
-
-  background-color: #f4f4f4;
-}
-
-.topnav a {
-  display: block;
-
-  padding: 10px 15px;
-
-  text-decoration: none;
-
-  color: black;
-
-  font: bold 24px/24px Helvetica, sans-serif;
-
-}
-
-.topnav a:hover{
-  text-decoration: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  max-width: 50%;
-  margin: 10px auto;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 5px 20px;
-
-  text-align: center;
-
-  color: black;
-}
-
-h1 {
-  letter-spacing: 10px;
-  font: 36px/36px Helvetica, sans-serif;
-}
 
 h2 {
-  font: 24px/24px Helvetica, sans-serif;
-  letter-spacing: 6px;
+  letter-spacing: 2px;
 }
 
 p {
   font: 1em/2em Helvetica, sans-serif;
   letter-spacing: 2px;
-  max-width: 50%;
-  margin-right: auto;
+  max-width: 90%;
+  text-align: center;
   margin-left: auto;
-  padding: 10px;
+  margin-right: auto;
 }
 
 div {
@@ -77,48 +22,65 @@ div {
   text-align: center;
 }
 
+/* Style navbar*/
+header{
+  width: 100%;
+  /*margin: auto;*/
+}
+.topnav {
+  letter-spacing: 2px;
+  overflow: hidden;
+
+  text-align: center;
+}
+
+.topnav a {
+  display: block;
+  letter-spacing: 2px;
+  padding: 10px 15px;
+
+  text-decoration: none;
+
+  color: black;
+
+  font: 24px/24px Helvetica, sans-serif;
+
+}
+
+.topnav a:hover{
+  text-decoration: none;
+}
+
+
+
 .carousel-title {
-  margin: 40px auto;
+  margin: 20px auto;
+  text-align: center;
+  letter-spacing: 1px;
+
+    font: 1.5em/2em Helvetica, sans-serif;
 }
 
 .fetch-image {
   padding: 5px 20px;
-  margin: 40px auto;
+  margin: 20px auto;
+  /*hide this element*/
+  display: none;
 }
 
 
-.input-group {
-  max-width: 50%;
-}
 
-
-.noselect {
-  -webkit-user-select: none;  /* Safari */
-  -moz-user-select: none;  /* Firefox */
-  -ms-user-select: none;  /* Internet Explorer/Edge */
-  user-select: none;  /* Non-prefixed version, currently supported by Chrome and Opera */
-
-  -webkit-touch-callout: none;  /* iOS Safari */
-  -khtml-user-select: none;  /* Konqueror HTML */
-}
-
-@media (max-width: 768px){
-.content {
-    margin: auto;
-    padding: 20px 40px;
-    width: auto;
-}
 
 .content {
   margin: auto;
-    padding: 20px;
-    width: 600px;
+  width: 100%;
 }
+
+
 .image-container {
   position: relative;
   right: 0;
   left: 0;
-  top: 10%;
 
   clear: both;
   overflow: hidden;
@@ -126,38 +88,32 @@ div {
     -webkit-box-sizing: content-box;
        -moz-box-sizing: content-box;
             box-sizing: content-box; /* use content box to consider the content for sizing only */
-  width: 525px;
-  height: 350px;
-  /*width: 100%;
-  height: auto;*/
-  margin: 40px auto;
-  clear: both;
+  /*width: 525px;
+  height: 350px;*/
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  /*min-height: 1px;*/
 
 }
-.image-container:before,
-.image-container:after {
-  display: table;
-  content: '';
-}
-.image-container:after {
-  clear:both;
-}
 
-.cat-div-clone {
+
+.duplicate {
   position: relative;
-  display: inline;
-  z-index: 0;
-  width: 50%;
+  display: block;
+  visibility: hidden;
+  width: 100%;
+  height: auto;
 }
 
 .cat-div {
   z-index: 1;
   position: absolute;
-  display: flex;
+  top: 0;
   float: left;
   left: 100%;
 
-  max-width: 100%;
+  width: 100%;
   height: auto;
 
 }
@@ -166,50 +122,12 @@ div {
   left: 0%;
 }
 
-@keyframes hidenext {
-  from {left: 0;}
-  to {left: -100%;}
-}
-
-@keyframes hideprevious {
-  from {left: 0;}
-  to {left: 100%;}
-}
-
-@keyframes shownext {
-  from {left: 100%;}
-  to {left: 0px;}
-}
-
-@keyframes showprevious {
-  from {left: -100%;}
-  to {left: 0;}
-}
-
-
-.photocarousel-caption{
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  left: 0;
-
+.cat-image{
   width: 100%;
-  max-width: none;
-  padding-top: 20px;
-  padding-bottom: 20px;
-
-  text-align: center;
-
-  color: white;
-  background-color: rgba(0, 0, 0, 0.30);
-
-  font: bold 16px/16px Helvetica, sans-serif;
 }
 
 .photocarousel-button {
-  position: absolute;
-  z-index: 10;
-
+  position: absolute;  top: 0;  z-index: 10;
   width: 25%;
   height: 100%;
   padding: 0;
@@ -262,4 +180,57 @@ div {
 
 .photocarousel-button:focus {
   outline: none;
+}
+
+/*Animation*/
+
+@keyframes hidenext {
+  from {left: 0;}
+  to {left: -100%;}
+}
+
+@keyframes hideprevious {
+  from {left: 0;}
+  to {left: 100%;}
+}
+
+@keyframes shownext {
+  from {left: 100%;}
+  to {left: 0px;}
+}
+
+@keyframes showprevious {
+  from {left: -100%;}
+  to {left: 0;}
+}
+
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .content {
+    width: 600px;
+  }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+
+.noselect {
+  -webkit-user-select: none;  /* Safari */
+  -moz-user-select: none;  /* Firefox */
+  -ms-user-select: none;  /* Internet Explorer/Edge */
+  user-select: none;  /* Non-prefixed version, currently supported by Chrome and Opera */
+
+  -webkit-touch-callout: none;  /* iOS Safari */
+  -khtml-user-select: none;  /* Konqueror HTML */
 }

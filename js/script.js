@@ -119,12 +119,10 @@ $(() => {
   function init() {
     const startingIndex = 0;
     $('.image-container').data('current-index', startingIndex);
-
     render(startingIndex);
     $(".photocarousel-button").one('click', photocarouselButtonHandler);
     // $('.fetch-image-form').submit(fetchImageHandler);
     return;
   }
-
   init();
 });
