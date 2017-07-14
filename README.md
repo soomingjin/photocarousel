@@ -30,7 +30,8 @@ Absolute positioned elements are essentially taken out of the flow of the markup
 
 ```javascript
 event.target
-``` and
+```
+and
 ```javascript
 event.currentTarget
 ```
