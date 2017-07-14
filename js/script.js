@@ -1,11 +1,4 @@
 $(() => {
-  const caption = [
-    "Curious grey kitten",
-    "Cat licking off the last bits of his meal from its paw",
-    "The cat stays still, keeping in mind not to startle its prey",
-    "After destroying its toy, it looks for a new target",
-    "The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes"
-  ];
   /*
    * handles the logic for clicking the buttons
    */
