@@ -22,18 +22,6 @@
     <nav class="topnav">
       <a href="#"><span class="glyphicon glyphicon-home"></span> PHOTO CAROUSEL</a>
     </nav>
-    <div class='fetch-image col-sm-6'>
-      <form class='fetch-image-form' action="">
-        <div class="input-group">
-          <input type="text" class="form-control" name='search-term' placeholder="Coming soon...">
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit" disabled=true;>
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-          </div>
-        </div>
-      </form>
-    </div>
   </header>
 
 
@@ -71,6 +59,24 @@
       </div>
     </div>
 
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='fetch-image col-md-12' id='fetch-image'>
+          <h2>FETCH NEW IMAGES</h2>
+          <form class='fetch-image-form' action="">
+            <div class="input-group">
+              <input type="text" id="fetch-keywords" class="form-control" name='search-term' placeholder="Keywords">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 
     <div class="container-fluid">
       <div class="row">
@@ -78,6 +84,9 @@
           <h2>DESCRIPTION</h2>
           <p>
             An image gallery of cats caught in the act. Click the left button to navigate to the previous cat or click the right button to navigate to the next cat.
+          </p>
+          <p>
+            By entering keywords into the <a href='#fetch-image'>Fetch Image</a> section, you can populate new images into the container
           </p>
         </div>
         <div class='row'>

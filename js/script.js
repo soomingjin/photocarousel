@@ -3,12 +3,11 @@ $(() => {
    * handles the logic for clicking the buttons
    */
   function photocarouselButtonHandler(event) {
-    const buttonType = event.currentTarget.name;
     $photocarouselbutton = $('.photocarousel-button');
-    const buttonActive = $photocarouselbutton.data('active');
-    console.log(buttonActive);
-    const $catdivs = $('.cat-div');
     $imagecontainer = $('.image-container');
+    const buttonType = event.currentTarget.name;
+    const buttonActive = $photocarouselbutton.data('active');
+    const $catdivs = $('.cat-div');
     const currentIndex = $imagecontainer.data('current-index');
     let nextIndex = currentIndex;
 
@@ -115,7 +114,35 @@ $(() => {
   // feature not ready yet
   function fetchImageHandler(event) {
     event.preventDefault();
-    alert("Search button clicked");
+    const keywords = $("#fetch-keywords").val().trim().split(/\s+/);
+    const apiKey = "fd5f20a53c009a33506904c2ab164800";
+    const flickrurl = "https://api.flickr.com/services/rest/?";
+    console.log('execute');
+    $.ajax({
+      dataType: "xml",
+      url: flickrurl,
+      data: {
+        method: "flickr.photos.search",
+        api_key: apiKey,
+        tags: 'superrare',
+        safe_search: 1,
+        content_type: 4
+      }
+    }).done(function(data) {
+      console.log(data);
+      console.log($.parseXML(data));
+      // $.each(data.photos, function(i,item){
+      //   var photoURL = 'http://farm' + item.farm + '.static.flickr.com/' + item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
+      //   console.log();
+      //   //turn the photo id into a variable
+      //   var photoID = item.id;
+      // });
+
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log('fail');
+    })
+
+
     return;
   }
 
@@ -125,12 +152,12 @@ $(() => {
    */
   function init() {
     const startingIndex = 0;
-    $('.image-container').data('current-index', startingIndex);
     $photocarouselbutton = $(".photocarousel-button");
-    render(startingIndex);
-    $photocarouselbutton.on('click', photocarouselButtonHandler);
+    $('.image-container').data('current-index', startingIndex);
     $photocarouselbutton.data('active', true);
-    // $('.fetch-image-form').submit(fetchImageHandler);
+    $photocarouselbutton.click(photocarouselButtonHandler);
+    $('.fetch-image-form').submit(fetchImageHandler);
+    render(startingIndex);
     return;
   }
   init();
