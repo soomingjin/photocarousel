@@ -8,45 +8,50 @@ h2 {
 }
 
 p {
-  font: 1em/2em Helvetica, sans-serif;
-  letter-spacing: 2px;
   max-width: 90%;
-  text-align: center;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
+
+  text-align: center;
+  letter-spacing: 2px;
+
+  font: 1em/2em Helvetica, sans-serif;
 }
 
 div {
   margin: auto;
+
   text-align: center;
 }
 
-/* Style navbar*/
-header{
+/* Style navbar and header */
+
+header {
   width: 100%;
   margin-bottom: 20px;
 }
+
 .topnav {
-  letter-spacing: 2px;
   overflow: hidden;
 
   text-align: center;
+  letter-spacing: 2px;
 }
 
 .topnav a {
   display: block;
-  letter-spacing: 2px;
+
   padding: 10px 15px;
 
   text-decoration: none;
+  letter-spacing: 2px;
 
   color: black;
 
   font: 32px/32px Helvetica, sans-serif;
-
 }
 
-.topnav a:hover{
+.topnav a:hover {
   text-decoration: none;
 }
 
@@ -54,27 +59,31 @@ header{
 
 .carousel-title {
   margin: 20px auto;
+
   text-align: center;
   letter-spacing: 1px;
 
-    font: 1.5em/2em Helvetica, sans-serif;
+  font: 1.5em/2em Helvetica, sans-serif;
 }
 
+/* WIP feature */
 .fetch-image {
-  padding: 5px 20px;
-  margin: 20px auto;
   /*hide this element*/
   display: none;
+
+  margin: 20px auto;
+  padding: 5px 20px;
 }
 
 
-
+/* content body */
 
 .content {
+  width: 100%;
   margin: auto;
-  width: 100%;
 }
 
+/* Image container positioning */
 
 .image-container {
   position: relative;
@@ -87,30 +96,31 @@ header{
     -webkit-box-sizing: content-box;
        -moz-box-sizing: content-box;
             box-sizing: content-box; /* use content box to consider the content for sizing only */
-  /*width: 525px;
-  height: 350px;*/
   width: 100%;
   height: auto;
   margin-bottom: 20px;
-  /*min-height: 1px;*/
+  padding: 0px;
 
 }
 
-
+/* Cat slide formatting */
 .duplicate {
   position: relative;
+
   display: block;
   visibility: hidden;
+
   width: 100%;
   height: auto;
 }
 
 .cat-div {
+  position: absolute;
   z-index: 1;
-  position: absolute;
   top: 0;
-  float: left;
   left: 100%;
+
+  float: left;
 
   width: 100%;
   height: auto;
@@ -125,8 +135,11 @@ header{
   width: 100%;
 }
 
+/* Button formatting */
+
 .photocarousel-button {
-  position: absolute;  top: 0;  z-index: 10;
+  position: absolute;  z-index: 10;top: 0;
+
   width: 25%;
   height: 100%;
   padding: 0;

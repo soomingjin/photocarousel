@@ -27,6 +27,7 @@ $(() => {
     render(nextIndex, buttonType);
     return;
   }
+  
   /*
    * Handles the logic of the next slide to be displayed
    */
@@ -42,6 +43,7 @@ $(() => {
 
     return;
   }
+
   /*
    * Animates the carousel sliding
    *
@@ -84,7 +86,9 @@ $(() => {
       });
       $nextSlide.animate({
         left: "-100%"
-      }, duration = 0).animate({
+      }, {
+        duration: 0
+      }).animate({
         left: "0px"
       }, {
         duration: 300,
@@ -99,12 +103,14 @@ $(() => {
 
     return;
   }
+
   // feature not ready yet
   function fetchImageHandler(event) {
     event.preventDefault();
     alert("Search button clicked");
     return;
   }
+
   /*
    * Initialises which slide to be displayed first
    *
