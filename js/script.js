@@ -4,30 +4,39 @@ $(() => {
    */
   function photocarouselButtonHandler(event) {
     const buttonType = event.currentTarget.name;
+    $photocarouselbutton = $('.photocarousel-button');
+    const buttonActive = $photocarouselbutton.data('active');
+    console.log(buttonActive);
     const $catdivs = $('.cat-div');
     $imagecontainer = $('.image-container');
     const currentIndex = $imagecontainer.data('current-index');
     let nextIndex = currentIndex;
 
     //check which button is being pressed and determine the next index
-    if (buttonType === "next") {
-      if (nextIndex >= $catdivs.length - 1) {
-        nextIndex = 0;
+    if (buttonActive) {
+      $photocarouselbutton.data('active', false);
+      if (buttonType === "next") {
+        if (nextIndex >= $catdivs.length - 1) {
+          nextIndex = 0;
+        } else {
+          nextIndex += 1;
+        }
       } else {
-        nextIndex += 1;
+        if (nextIndex <= 0) {
+          nextIndex = $catdivs.length - 1;
+        } else {
+          nextIndex -= 1;
+        }
       }
     } else {
-      if (nextIndex <= 0) {
-        nextIndex = $catdivs.length - 1;
-      } else {
-        nextIndex -= 1;
-      }
+      return;
     }
+
     $imagecontainer.data('current-index', nextIndex);
     render(nextIndex, buttonType);
     return;
   }
-  
+
   /*
    * Handles the logic of the next slide to be displayed
    */
@@ -50,7 +59,6 @@ $(() => {
    */
   function animateSlide($active, $nextSlide, command) {
     $photocarouselbutton = $(".photocarousel-button");
-    $photocarouselbutton.off('click');
     if (command === "next") {
       $active.animate({
         left: "-100%"
@@ -68,8 +76,8 @@ $(() => {
         duration: 300,
         complete: function() {
           $(this).toggleClass('active');
-          $photocarouselbutton.one('click', photocarouselButtonHandler);
           $(this).removeAttr('style');
+          $photocarouselbutton.data('active', true);
           return;
         }
       });
@@ -94,8 +102,8 @@ $(() => {
         duration: 300,
         complete: function() {
           $(this).toggleClass('active');
-          $photocarouselbutton.one('click', photocarouselButtonHandler);
           $(this).removeAttr('style');
+          $photocarouselbutton.data('active', true);
           return;
         }
       });
@@ -118,8 +126,10 @@ $(() => {
   function init() {
     const startingIndex = 0;
     $('.image-container').data('current-index', startingIndex);
+    $photocarouselbutton = $(".photocarousel-button");
     render(startingIndex);
-    $(".photocarousel-button").one('click', photocarouselButtonHandler);
+    $photocarouselbutton.on('click', photocarouselButtonHandler);
+    $photocarouselbutton.data('active', true);
     // $('.fetch-image-form').submit(fetchImageHandler);
     return;
   }
