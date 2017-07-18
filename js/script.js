@@ -47,12 +47,16 @@ $(() => {
     const containerHeight = $imageContainer.height();
     const containerWidth = $imageContainer.width();
     if (buttonType === 'init') {
-      // $.each($catdivs, function(i, v) {
-      //   let $that = $(this);
-      //   const ratio = calculateAspectRatioFit($that.width(), $that.height(), containerWidth, containerHeight);
-      //   $that.width(ratio.width);
-      //   $that.height(ratio.height);
-      // });
+      $('.cat-div').eq(nextIndex).toggleClass('active');
+    } else if(buttonType === 'fetch'){
+      $.each($('.cat-image'), function(i, v) {
+        let $that = $(this);
+        if ($(this).height() <= containerHeight) {
+          $(this).height('100%');
+          $(this).width('auto');
+        }
+        return;
+      });
       $('.cat-div').eq(nextIndex).toggleClass('active');
     } else {
       animateSlide($active, $nextSlide, buttonType);
@@ -60,24 +64,6 @@ $(() => {
 
     return;
   }
-
-  /**
- * Conserve aspect ratio of the orignal region. Useful when shrinking/enlarging
- * images to fit into a certain area.
- *
- * @param {Number} srcWidth Source area width
- * @param {Number} srcHeight Source area height
- * @param {Number} maxWidth Fittable area maximum available width
- * @param {Number} maxHeight Fittable area maximum available height
- * @return {Object} { width, heigth }
- */
-  function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-
-     var ratio = Math.floor(Math.min(maxWidth / srcWidth, maxHeight / srcHeight));
-
-     return { width: srcWidth*ratio, height: srcHeight*ratio };
-  }
-
 
   /*
    * Animates the carousel sliding
@@ -138,13 +124,12 @@ $(() => {
     return;
   }
 
-  // feature not ready yet
+  // fetches images from flickr and displays them in the image container
   function fetchImageHandler(event) {
     event.preventDefault();
     const keywords = $("#fetch-keywords").val().trim().split(/\s+/).join(',');
     const apiKey = "fd5f20a53c009a33506904c2ab164800";
     const flickrurl = "https://api.flickr.com/services/rest/";
-    console.log('execute');
     var xhr = $.ajax({
       dataType: "json",
       url: flickrurl,
@@ -187,9 +172,8 @@ $(() => {
           img.setAttribute('class', 'cat-image');
           img.setAttribute('src', photoURL);
           img.setAttribute('title', photoTitle);
-          // div.append(img);
+          div.append(img);
           div.setAttribute('class', 'cat-div');
-          div.setAttribute('background-image', `url(\"${photoURL}\") no-repeat center center`);
           $imageContainer.append(div);
 
         }
@@ -201,10 +185,20 @@ $(() => {
     }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log('fail');
       console.log('textStatus = ' + textStatus);
-      console.log(errorThrown);
+      console.log('errorThrown = ' + errorThrown);
     });
 
     return;
+  }
+
+  function bindLoader(id){
+    $(document).ajaxStart(function() {
+      console.log('shown');
+      $(id).show();
+    }).ajaxComplete(function() {
+      console.log('hidden');
+      $(id).hide();
+    });
   }
 
   /*
@@ -218,6 +212,7 @@ $(() => {
     $photocarouselbutton.data('active', true);
     $photocarouselbutton.click(photocarouselButtonHandler);
     $('.fetch-image-form').submit(fetchImageHandler);
+    bindLoader('#wait');
     render(startingIndex);
     return;
   }
