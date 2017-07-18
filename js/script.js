@@ -40,6 +40,7 @@ $(() => {
    * Handles the logic of the next slide to be displayed
    */
   function render(nextIndex, buttonType = 'init') {
+    console.log('rendering');
     const $catdivs = $('.cat-div');
     const $active = $('.active');
     const $nextSlide = $catdivs.eq(nextIndex);
@@ -47,16 +48,6 @@ $(() => {
     const containerHeight = $imageContainer.height();
     const containerWidth = $imageContainer.width();
     if (buttonType === 'init') {
-      $('.cat-div').eq(nextIndex).toggleClass('active');
-    } else if(buttonType === 'fetch'){
-      $.each($('.cat-image'), function(i, v) {
-        let $that = $(this);
-        if ($(this).height() <= containerHeight) {
-          $(this).height('100%');
-          $(this).width('auto');
-        }
-        return;
-      });
       $('.cat-div').eq(nextIndex).toggleClass('active');
     } else {
       animateSlide($active, $nextSlide, buttonType);
