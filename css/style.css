@@ -83,6 +83,7 @@ header {
   height: auto;
   margin-bottom: 20px;
   padding: 0px;
+  display: table;
 
 }
 
@@ -100,15 +101,16 @@ header {
 .cat-div {
   position: absolute;
   z-index: 1;
-  top: 0;
+  /*top: 0;*/
   left: 100%;
 
   float: left;
 
   width: 100%;
-  height: auto;
+  height: 100%;
   min-height: 1px;
-
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .active {
@@ -117,7 +119,7 @@ header {
 
 .cat-image{
   width: 100%;
-  height:auto;
+  height: auto;
 }
 
 /* Button formatting */

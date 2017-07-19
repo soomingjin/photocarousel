@@ -5,7 +5,7 @@ $(() => {
   function photocarouselButtonHandler(event) {
     $photocarouselbutton = $('.photocarousel-button');
     $imagecontainer = $('.image-container');
-    const buttonType = event.currentTarget.name;
+    const buttonType = this.name;
     const buttonActive = $photocarouselbutton.data('active');
     const $catdivs = $('.cat-div');
     const currentIndex = $imagecontainer.data('current-index');
@@ -40,7 +40,6 @@ $(() => {
    * Handles the logic of the next slide to be displayed
    */
   function render(nextIndex, buttonType = 'init') {
-    console.log('rendering');
     const $catdivs = $('.cat-div');
     const $active = $('.active');
     const $nextSlide = $catdivs.eq(nextIndex);
@@ -49,6 +48,9 @@ $(() => {
     const containerWidth = $imageContainer.width();
     if (buttonType === 'init') {
       $('.cat-div').eq(nextIndex).toggleClass('active');
+      $.each($catdivs, function(){
+
+      });
     } else {
       animateSlide($active, $nextSlide, buttonType);
     }
