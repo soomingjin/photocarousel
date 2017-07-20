@@ -1,4 +1,26 @@
 $(() => {
+  // image array to store all the properties of the cat images, namely the path
+  // and the caption.
+  const images = [{
+    path: "cate2.jpeg",
+    caption: "Curious grey kitten"
+  },{
+    path: "cate3.jpeg",
+    caption: "Cat licking off the last bits of his meal from its paw"
+  },{
+    path: "cate4.jpg",
+    caption: "The cat stays still, keeping in mind not to startle its prey"
+  },{
+    path: "cate6.jpg",
+    caption: "After destroying its toy, it looks for a new target"
+  },{
+    path: "cate7.jpg",
+    caption: "The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes"
+  }
+  ];
+   function buildLocalPath(name) {
+     return `images/${name}`;
+   }
   /*
    * handles the logic for clicking the buttons
    */
@@ -6,23 +28,23 @@ $(() => {
     $photocarouselbutton = $('.photocarousel-button');
     $imagecontainer = $('.image-container');
     const buttonType = this.name;
-    const buttonActive = $photocarouselbutton.data('active');
-    const $catdivs = $('.cat-div');
+    const buttonActive = $(this).data('active');
+    const $photocarouselDivs = $('.photocarousel-div');
     const currentIndex = $imagecontainer.data('current-index');
     let nextIndex = currentIndex;
 
     //check which button is being pressed and determine the next index
     if (buttonActive) {
-      $photocarouselbutton.data('active', false);
+      $(this).data('active', false);
       if (buttonType === "next") {
-        if (nextIndex >= $catdivs.length - 1) {
+        if (nextIndex >= $photocarouselDivs.length - 1) {
           nextIndex = 0;
         } else {
           nextIndex += 1;
         }
       } else {
         if (nextIndex <= 0) {
-          nextIndex = $catdivs.length - 1;
+          nextIndex = $photocarouselDivs.length - 1;
         } else {
           nextIndex -= 1;
         }
@@ -40,20 +62,27 @@ $(() => {
    * Handles the logic of the next slide to be displayed
    */
   function render(nextIndex, buttonType = 'init') {
-    const $catdivs = $('.cat-div');
+    const $photocarouselDivs = $('.photocarousel-div');
     const $active = $('.active');
-    const $nextSlide = $catdivs.eq(nextIndex);
+    const $nextSlide = $photocarouselDivs.eq(nextIndex);
     const $imageContainer = $('.image-container');
-    const containerHeight = $imageContainer.height();
-    const containerWidth = $imageContainer.width();
     if (buttonType === 'init') {
-      $('.cat-div').eq(nextIndex).toggleClass('active');
-      $.each($catdivs, function(){
-
+      $nextSlide.toggleClass('active');
+      $.each($photocarouselDivs, function(i, v){
+        let imagePath = buildLocalPath(images[i].path);
+        let imageCaption = images[i].caption;
+        $(this).css('background-image', `url(${imagePath})`);
+        $(this).attr('title', imageCaption);
       });
-    } else {
+    } else if (buttonType === 'fetch'){
+      $nextSlide.toggleClass('active');
+    } else if(buttonType === "previous" || buttonType === "next"){
       animateSlide($active, $nextSlide, buttonType);
+    } else {
+      console.log("buttonType = ");
+      console.log("Error. Unrecognised buttonType referenced");
     }
+    $imageContainer.attr('title', $nextSlide.attr('title'));
 
     return;
   }
@@ -70,7 +99,7 @@ $(() => {
       }, {
         duration: 300,
         complete: function() {
-          $(this).removeAttr('style');
+          $(this).css('left', "");
           $(this).toggleClass('active');
           return;
         }
@@ -81,7 +110,7 @@ $(() => {
         duration: 300,
         complete: function() {
           $(this).toggleClass('active');
-          $(this).removeAttr('style');
+          $(this).css('left', "");
           $photocarouselbutton.data('active', true);
           return;
         }
@@ -93,7 +122,7 @@ $(() => {
         duration: 300,
         complete: function() {
           $(this).toggleClass('active');
-          $(this).removeAttr('style');
+          $(this).css('left', "");
           return;
         }
       });
@@ -107,13 +136,12 @@ $(() => {
         duration: 300,
         complete: function() {
           $(this).toggleClass('active');
-          $(this).removeAttr('style');
+          $(this).css('left', "");
           $photocarouselbutton.data('active', true);
           return;
         }
       });
     }
-
     return;
   }
 
@@ -143,7 +171,7 @@ $(() => {
         console.log('not ok');
         return;
       } else {
-        const $removedDivs = $('.cat-div').detach();
+        const $removedDivs = $('.photocarousel-div').detach();
         const $imageContainer = $('.image-container');
         for (let i = 0; i < rsp.photos.photo.length; i++) {
           let photo = rsp.photos.photo[i];
@@ -154,28 +182,27 @@ $(() => {
           let photoTitle = photo.title;
           let mstzb = 'z'; //photosize
           let photoURL = `https://farm${farmId}.staticflickr.com/${serverId}/${id}_${secret}_${mstzb}.jpg`
-          // (secondary) loading gif to be added over the container
+          // (secondary) loading gif added over the container
           // make elements to be added into the dom
           // remove current images (possibly store them)
           // reset the index -> display the images
 
-          // div -> images
-          let img = document.createElement('img');
+          // div -> background-image
+          // $imageContainer append(div)
           let div = document.createElement('div');
-          img.setAttribute('class', 'cat-image');
-          img.setAttribute('src', photoURL);
-          img.setAttribute('title', photoTitle);
-          div.append(img);
-          div.setAttribute('class', 'cat-div');
+          $div = $(div);
+          $div.css('background-image', `url(${photoURL})`);
+          $div.attr('class', 'photocarousel-div');
+          $div.attr('title', photoTitle);
           $imageContainer.append(div);
-
         }
         $imageContainer.data('current-index', 0);
-        render(0);
+        render(0, 'fetch');
       }
       return;
 
     }).fail(function(jqXHR, textStatus, errorThrown) {
+
       console.log('fail');
       console.log('textStatus = ' + textStatus);
       console.log('errorThrown = ' + errorThrown);
@@ -186,10 +213,10 @@ $(() => {
 
   function bindLoader(id){
     $(document).ajaxStart(function() {
-      console.log('shown');
+      // console.log('shown');
       $(id).show();
     }).ajaxComplete(function() {
-      console.log('hidden');
+      // console.log('hidden');
       $(id).hide();
     });
   }
@@ -198,8 +225,7 @@ $(() => {
    * Initialises which slide to be displayed first
    *
    */
-  function init() {
-    const startingIndex = 0;
+  function init(startingIndex) {
     $photocarouselbutton = $(".photocarousel-button");
     $('.image-container').data('current-index', startingIndex);
     $photocarouselbutton.data('active', true);
@@ -209,5 +235,5 @@ $(() => {
     render(startingIndex);
     return;
   }
-  init();
+  init(0);
 });
