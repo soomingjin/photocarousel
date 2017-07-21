@@ -66,7 +66,7 @@ header {
 
 /* Image container positioning */
 
-.image-container {
+.photocarousel {
   position: relative;
   right: 0;
   left: 0;
@@ -82,6 +82,7 @@ header {
   height: 200px;
   margin-bottom: 20px;
   padding: 0px;
+  background-color: rgba(0, 0, 0, 0.05);
 
 }
 
@@ -215,15 +216,22 @@ header {
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (potrait and small screen)*/
+@media (min-width: 350px) {
+  .photocarousel, .photocarousel-div, .duplicate  {
+    width: 330px;
+    height: 220px;
+  }
+}
+/* Small devices (potrait and small screen)*/
 @media (min-width: 450px) {
-  .image-container, .photocarousel-div, .duplicate  {
-    width: 400px;
-    height: 266px;
+  .photocarousel, .photocarousel-div, .duplicate  {
+    width: 430px;
+    height: 286px;
   }
 }
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
-  .image-container, .photocarousel-div, .duplicate  {
+  .photocarousel, .photocarousel-div, .duplicate  {
     width: 550px;
     height: 366px;
   }
@@ -234,14 +242,20 @@ header {
   .content {
     width: 640px;
   }
-  .image-container, .photocarousel-div, .duplicate {
+  .photocarousel, .photocarousel-div, .duplicate {
     width: 640px;
     height: 426px;
   }
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
+  .content {
+    width: 700px;
+  }
+  .photocarousel, .photocarousel-div, .duplicate {
+    width: 700px;
+    height: 466px;
+  }
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -261,7 +275,7 @@ header {
 }
 
 /*Added loading gif*/
-#wait{
+.wait{
   display:    none;
   position:   absolute;
   z-index:    1000;

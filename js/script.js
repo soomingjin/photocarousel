@@ -1,59 +1,72 @@
 $(() => {
+  // TODO:
+  // Make this script into plug-in like
+  // The init function would take in the id of the element
+  // subsequent functions are dependent on the id of that
+
+
   // image array to store all the properties of the cat images, namely the path
   // and the caption.
   const images = [{
     path: "cate2.jpeg",
     caption: "Curious grey kitten"
-  },{
+  }, {
     path: "cate3.jpeg",
     caption: "Cat licking off the last bits of his meal from its paw"
-  },{
+  }, {
     path: "cate4.jpg",
     caption: "The cat stays still, keeping in mind not to startle its prey"
-  },{
+  }, {
     path: "cate6.jpg",
     caption: "After destroying its toy, it looks for a new target"
-  },{
+  }, {
     path: "cate7.jpg",
     caption: "The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes"
+  }];
+
+  function buildLocalPath(name) {
+    return `images/${name}`;
   }
-  ];
-   function buildLocalPath(name) {
-     return `images/${name}`;
-   }
   /*
    * handles the logic for clicking the buttons
    */
   function photocarouselButtonHandler(event) {
-    $photocarouselbutton = $('.photocarousel-button');
-    $imagecontainer = $('.image-container');
-    const buttonType = this.name;
-    const buttonActive = $(this).data('active');
+    console.log(event.data.photocarousel);
+    const $photocarousel = event.data.photocarousel;
+    const $photocarouselbutton = $photocarousel.children('.photocarousel-button');
+    console.log($photocarouselbutton);
     const $photocarouselDivs = $('.photocarousel-div');
-    const currentIndex = $imagecontainer.data('current-index');
+    const buttonType = this.name;
+    const buttonActive = $photocarousel.data('active');
+    const currentIndex = $photocarousel.data('current-index');
     let nextIndex = currentIndex;
 
     //check which button is being pressed and determine the next index
     if (buttonActive) {
-      $(this).data('active', false);
-      if (buttonType === "next") {
+      $photocarousel.data('active', false);
+      if (buttonType === "next" && $photocarouselDivs.length > 1) {
         if (nextIndex >= $photocarouselDivs.length - 1) {
           nextIndex = 0;
         } else {
           nextIndex += 1;
         }
-      } else {
+      } else if (buttonType === "previous" && $photocarouselDivs.length > 1) {
         if (nextIndex <= 0) {
           nextIndex = $photocarouselDivs.length - 1;
         } else {
           nextIndex -= 1;
         }
+      } else {
+        // TODO: allow the user to know that there is only one slide in the
+        // carousel, perhaps by adding dots to indicate the current slide
+        console.log("only 1 image displayed");
+        return;
       }
     } else {
       return;
     }
 
-    $imagecontainer.data('current-index', nextIndex);
+    $photocarousel.data('current-index', nextIndex);
     render(nextIndex, buttonType);
     return;
   }
@@ -61,28 +74,32 @@ $(() => {
   /*
    * Handles the logic of the next slide to be displayed
    */
-  function render(nextIndex, buttonType = 'init') {
+  function render(nextIndex, photocarousel, buttonType = 'init') {
     const $photocarouselDivs = $('.photocarousel-div');
     const $active = $('.active');
     const $nextSlide = $photocarouselDivs.eq(nextIndex);
-    const $imageContainer = $('.image-container');
-    if (buttonType === 'init') {
-      $nextSlide.toggleClass('active');
-      $.each($photocarouselDivs, function(i, v){
-        let imagePath = buildLocalPath(images[i].path);
-        let imageCaption = images[i].caption;
-        $(this).css('background-image', `url(${imagePath})`);
-        $(this).attr('title', imageCaption);
-      });
-    } else if (buttonType === 'fetch'){
-      $nextSlide.toggleClass('active');
-    } else if(buttonType === "previous" || buttonType === "next"){
-      animateSlide($active, $nextSlide, buttonType);
-    } else {
-      console.log("buttonType = ");
+    const $photocarousel = $(photocarousel);
+    try {
+      if (buttonType === 'init') {
+        $nextSlide.toggleClass('active');
+        $.each($photocarouselDivs, function(i, v) {
+          let imagePath = buildLocalPath(images[i].path);
+          let imageCaption = images[i].caption;
+          $(this).css('background-image', `url(${imagePath})`);
+          $(this).attr('title', imageCaption);
+        });
+      } else if (buttonType === 'fetch') {
+        $nextSlide.toggleClass('active');
+      } else if (buttonType === "previous" || buttonType === "next") {
+        animateSlide($active, $nextSlide, buttonType);
+      } else {
+        throw (buttonType);
+      }
+    } catch (error) {
+      console.log("buttonType = " + error);
       console.log("Error. Unrecognised buttonType referenced");
     }
-    $imageContainer.attr('title', $nextSlide.attr('title'));
+    $photocarousel.attr('title', $nextSlide.attr('title'));
 
     return;
   }
@@ -148,7 +165,7 @@ $(() => {
   // fetches images from flickr and displays them in the image container
   function fetchImageHandler(event) {
     event.preventDefault();
-    const keywords = $("#fetch-keywords").val().trim().split(/\s+/).join(',');
+    const keywords = $(".fetch-keywords").val().trim().split(/\s+/).join(',');
     const apiKey = "fd5f20a53c009a33506904c2ab164800";
     const flickrurl = "https://api.flickr.com/services/rest/";
     var xhr = $.ajax({
@@ -162,20 +179,20 @@ $(() => {
         tags: keywords,
         safe_search: 1,
         content_type: 4,
-        per_page: 20
+        per_page: 50
       }
     }).done(function(rsp, textStatus, jqXHR) {
       console.log('done');
-      if (rsp.stat !== 'ok'){
+      if (rsp.stat !== 'ok') {
         console.log(rsp.stat + rsp.code + rsp.message);
         console.log('not ok');
         return;
       } else {
         const $removedDivs = $('.photocarousel-div').detach();
-        const $imageContainer = $('.image-container');
+        const $photocarousel = $('.photocarousel');
         for (let i = 0; i < rsp.photos.photo.length; i++) {
           let photo = rsp.photos.photo[i];
-          let id= photo.id;
+          let id = photo.id;
           let farmId = photo.farm;
           let serverId = photo.server;
           let secret = photo.secret;
@@ -188,19 +205,18 @@ $(() => {
           // reset the index -> display the images
 
           // div -> background-image
-          // $imageContainer append(div)
+          // $photocarousel append(div)
           let div = document.createElement('div');
           $div = $(div);
           $div.css('background-image', `url(${photoURL})`);
           $div.attr('class', 'photocarousel-div');
           $div.attr('title', photoTitle);
-          $imageContainer.append(div);
+          $photocarousel.append(div);
         }
-        $imageContainer.data('current-index', 0);
+        $photocarousel.data('current-index', 0);
         render(0, 'fetch');
       }
       return;
-
     }).fail(function(jqXHR, textStatus, errorThrown) {
 
       console.log('fail');
@@ -211,7 +227,7 @@ $(() => {
     return;
   }
 
-  function bindLoader(id){
+  function bindLoader(id) {
     $(document).ajaxStart(function() {
       // console.log('shown');
       $(id).show();
@@ -225,15 +241,16 @@ $(() => {
    * Initialises which slide to be displayed first
    *
    */
-  function init(startingIndex) {
-    $photocarouselbutton = $(".photocarousel-button");
-    $('.image-container').data('current-index', startingIndex);
-    $photocarouselbutton.data('active', true);
-    $photocarouselbutton.click(photocarouselButtonHandler);
+  function init(startingIndex, photocarousel) {
+    const $photocarouselButton = $(`${photocarousel} .photocarousel-button`);
+    const $photocarousel = $(photocarousel);
+    $photocarousel.data('current-index', startingIndex);
+    $photocarousel.data('active', true);
+    $photocarouselButton.bind('click', { photocarousel: $photocarousel }, photocarouselButtonHandler);
     $('.fetch-image-form').submit(fetchImageHandler);
-    bindLoader('#wait');
-    render(startingIndex);
+    bindLoader('.wait');
+    render(startingIndex, $photocarousel);
     return;
   }
-  init(0);
+  init(0, '.photocarousel0');
 });
