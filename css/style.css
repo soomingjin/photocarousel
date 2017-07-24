@@ -184,6 +184,7 @@ header {
 
 
 .fetch-image {
+  display: block;
   margin: 20px auto;
   padding: 5px 20px;
 }

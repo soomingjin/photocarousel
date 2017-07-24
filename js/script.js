@@ -31,11 +31,8 @@ $(() => {
    * handles the logic for clicking the buttons
    */
   function photocarouselButtonHandler(event) {
-    console.log(event.data.photocarousel);
     const $photocarousel = event.data.photocarousel;
-    const $photocarouselbutton = $photocarousel.children('.photocarousel-button');
-    console.log($photocarouselbutton);
-    const $photocarouselDivs = $('.photocarousel-div');
+    const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
     const buttonType = this.name;
     const buttonActive = $photocarousel.data('active');
     const currentIndex = $photocarousel.data('current-index');
@@ -67,18 +64,17 @@ $(() => {
     }
 
     $photocarousel.data('current-index', nextIndex);
-    render(nextIndex, buttonType);
+    render(nextIndex, $photocarousel, buttonType);
     return;
   }
 
   /*
    * Handles the logic of the next slide to be displayed
    */
-  function render(nextIndex, photocarousel, buttonType = 'init') {
-    const $photocarouselDivs = $('.photocarousel-div');
-    const $active = $('.active');
+  function render(nextIndex, $photocarousel, buttonType = 'init') {
+    const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
+    const $active = $photocarousel.children('.active');
     const $nextSlide = $photocarouselDivs.eq(nextIndex);
-    const $photocarousel = $(photocarousel);
     try {
       if (buttonType === 'init') {
         $nextSlide.toggleClass('active');
@@ -91,7 +87,7 @@ $(() => {
       } else if (buttonType === 'fetch') {
         $nextSlide.toggleClass('active');
       } else if (buttonType === "previous" || buttonType === "next") {
-        animateSlide($active, $nextSlide, buttonType);
+        animateSlide($active, $nextSlide, buttonType, $photocarousel);
       } else {
         throw (buttonType);
       }
@@ -108,8 +104,7 @@ $(() => {
    * Animates the carousel sliding
    *
    */
-  function animateSlide($active, $nextSlide, command) {
-    $photocarouselbutton = $(".photocarousel-button");
+  function animateSlide($active, $nextSlide, command, $photocarousel) {
     if (command === "next") {
       $active.animate({
         left: "-100%"
@@ -128,7 +123,7 @@ $(() => {
         complete: function() {
           $(this).toggleClass('active');
           $(this).css('left', "");
-          $photocarouselbutton.data('active', true);
+          $photocarousel.data('active', true);
           return;
         }
       });
@@ -154,7 +149,7 @@ $(() => {
         complete: function() {
           $(this).toggleClass('active');
           $(this).css('left', "");
-          $photocarouselbutton.data('active', true);
+          $photocarousel.data('active', true);
           return;
         }
       });
@@ -165,7 +160,8 @@ $(() => {
   // fetches images from flickr and displays them in the image container
   function fetchImageHandler(event) {
     event.preventDefault();
-    const keywords = $(".fetch-keywords").val().trim().split(/\s+/).join(',');
+    const $photocarousel = event.data.photocarousel;
+    const keywords = $(this).find(".fetch-keywords").val().trim().split(/\s+/).join(',');
     const apiKey = "fd5f20a53c009a33506904c2ab164800";
     const flickrurl = "https://api.flickr.com/services/rest/";
     var xhr = $.ajax({
@@ -188,8 +184,7 @@ $(() => {
         console.log('not ok');
         return;
       } else {
-        const $removedDivs = $('.photocarousel-div').detach();
-        const $photocarousel = $('.photocarousel');
+        const $removedDivs = $photocarousel.children('.photocarousel-div').detach();
         for (let i = 0; i < rsp.photos.photo.length; i++) {
           let photo = rsp.photos.photo[i];
           let id = photo.id;
@@ -214,11 +209,10 @@ $(() => {
           $photocarousel.append(div);
         }
         $photocarousel.data('current-index', 0);
-        render(0, 'fetch');
+        render(0, $photocarousel, 'fetch');
       }
       return;
     }).fail(function(jqXHR, textStatus, errorThrown) {
-
       console.log('fail');
       console.log('textStatus = ' + textStatus);
       console.log('errorThrown = ' + errorThrown);
@@ -227,13 +221,11 @@ $(() => {
     return;
   }
 
-  function bindLoader(id) {
+  function bindLoader(className) {
     $(document).ajaxStart(function() {
-      // console.log('shown');
-      $(id).show();
+      $(className).show();
     }).ajaxComplete(function() {
-      // console.log('hidden');
-      $(id).hide();
+      $(className).hide();
     });
   }
 
@@ -242,15 +234,17 @@ $(() => {
    *
    */
   function init(startingIndex, photocarousel) {
-    const $photocarouselButton = $(`${photocarousel} .photocarousel-button`);
-    const $photocarousel = $(photocarousel);
+    const $photocarouselButton = $(`${photocarousel} .photocarousel .photocarousel-button`);
+    const $photocarousel = $(photocarousel).children('.photocarousel');
+    const $fetchImage = $(photocarousel).children('.fetch-image');
     $photocarousel.data('current-index', startingIndex);
     $photocarousel.data('active', true);
-    $photocarouselButton.bind('click', { photocarousel: $photocarousel }, photocarouselButtonHandler);
-    $('.fetch-image-form').submit(fetchImageHandler);
+    $photocarouselButton.click({photocarousel: $photocarousel}, photocarouselButtonHandler);
+    $fetchImage.find('.fetch-image-form').submit({photocarousel: $photocarousel}, fetchImageHandler);
     bindLoader('.wait');
     render(startingIndex, $photocarousel);
     return;
   }
-  init(0, '.photocarousel0');
+  init(0, '#photocarousel0');
+  init(1, '#photocarousel1');
 });
