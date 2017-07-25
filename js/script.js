@@ -1,9 +1,4 @@
 $(() => {
-  // TODO:
-  // Make this script into plug-in like
-  // The init function would take in the id of the element
-  // subsequent functions are dependent on the id of that
-
 
   // image array to store all the properties of the cat images, namely the path
   // and the caption.
@@ -71,21 +66,17 @@ $(() => {
   /*
    * Handles the logic of the next slide to be displayed
    */
-  function render(nextIndex, $photocarousel, buttonType = 'init') {
-    const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
-    const $active = $photocarousel.children('.active');
-    const $nextSlide = $photocarouselDivs.eq(nextIndex);
+  function render(nextIndex, $photocarousel, buttonType = 'init', opts) {
+    let $photocarouselDivs = $photocarousel.children('.photocarousel-div');
+    let $active = $photocarousel.children('.activeSlide');
+    let $nextSlide = $photocarouselDivs.eq(nextIndex);
     try {
-      if (buttonType === 'init') {
-        $nextSlide.toggleClass('active');
-        $.each($photocarouselDivs, function(i, v) {
-          let imagePath = buildLocalPath(images[i].path);
-          let imageCaption = images[i].caption;
-          $(this).css('background-image', `url(${imagePath})`);
-          $(this).attr('title', imageCaption);
-        });
-      } else if (buttonType === 'fetch') {
-        $nextSlide.toggleClass('active');
+      if (buttonType === 'init' || buttonType === 'fetch') {
+        buildDOM($photocarousel, buttonType, opts);
+        $photocarouselDivs = $photocarousel.children('.photocarousel-div');
+        $active = $photocarousel.children('.activeSlide');
+        $nextSlide = $photocarouselDivs.eq(nextIndex);
+        $nextSlide.toggleClass('activeSlide');
       } else if (buttonType === "previous" || buttonType === "next") {
         animateSlide($active, $nextSlide, buttonType, $photocarousel);
       } else {
@@ -98,6 +89,83 @@ $(() => {
     $photocarousel.attr('title', $nextSlide.attr('title'));
 
     return;
+  }
+  /**
+   * This function builds photocarousel-divs
+   * @param {JQuery} $photocarousel The container to be appended to
+   * @param {String} buttonType Name of button that is being pressed
+   * @param {Object} opts options for the number of slides to be built
+   * @returns {boolean} success/fail
+   */
+  function buildDOM($photocarousel, buttonType, opts) {
+    if (buttonType === 'init') {
+      createLoaderDiv($photocarousel);
+      for (let i = 0; i < opts.numberOfSlides; i++) {
+        let imagePath = buildLocalPath(images[i].path);
+        let imageCaption = images[i].caption;
+        createPhotocarouselDiv(imagePath, imageCaption, $photocarousel);
+      }
+      createSearchFunction(opts.searchFunction, $photocarousel);
+      return true;
+    } else if (buttonType === 'fetch') {
+      const data = opts.data;
+      for (let i = 0; i < data.length; i++) {
+        let photo = data[i];
+        let id = photo.id;
+        let farmId = photo.farm;
+        let serverId = photo.server;
+        let secret = photo.secret;
+        let photoTitle = photo.title;
+        let mstzb = 'z'; //photosize
+        let photoURL = `https://farm${farmId}.staticflickr.com/${serverId}/${id}_${secret}_${mstzb}.jpg`
+        // (secondary) loading gif added over the container
+        // make elements to be added into the dom
+        // remove current images (possibly store them)
+        // reset the index -> display the images
+
+        // div -> background-image
+
+        createPhotocarouselDiv(photoURL, photoTitle, $photocarousel);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  function createPhotocarouselDiv(photoURL, photoTitle, $photocarousel) {
+    // $(document.createElement('div')) is about 20% faster than $('<div>')
+    // source: http://jsben.ch/bgvCV
+    $(document.createElement('div'))
+      .css('background-image', `url(${photoURL})`)
+      .attr('class', 'photocarousel-div')
+      .attr('title', photoTitle)
+      .appendTo($photocarousel);
+    return;
+  }
+
+  function createLoaderDiv($photocarousel) {
+    $(document.createElement('div'))
+      .attr('class', 'wait')
+      .appendTo($photocarousel);
+    $(document.createElement('img'))
+      .attr('class', 'loader')
+      .attr('src', 'images/ajax-loader.gif')
+      .appendTo($photocarousel.children('.wait'));
+  }
+
+  function createSearchFunction(searchFunction, $photocarousel) {
+    // $(document.createElement('div')).attr('class', 'fetch-image').insertAfter($photocarousel);
+    if (searchFunction) {
+    const $fetchImageDiv = $photocarousel.siblings('.fetch-image');
+    const $fetchImageForm = $(document.createElement('form')).attr({class: 'fetch-image-form', action: ""});
+    const $spanTitle = $(document.createElement('span')).text('FETCH NEW IMAGES');
+    const $inputGroup = $(document.createElement('div')).attr({class: 'input-group'});
+    const $fetchKeywords = $(document.createElement('input')).attr({type: 'text', class: 'form-control fetch-keywords', name: 'search-term', placeholder: 'keywords'});
+    const $inputGroupBtn = $(document.createElement('div')).attr({class: 'input-group-btn'});
+    const $submitBtn = $(document.createElement('button')).attr({class: 'btn btn-default', type: 'submit'});
+    const $submitBtnLogo = $(document.createElement('span')).attr({class: 'glyphicon glyphicon-search'});
+    $fetchImageDiv.append($fetchImageForm.append($spanTitle, $inputGroup.append($fetchKeywords, $inputGroupBtn.append($submitBtn.append($submitBtnLogo)))));
+    }
   }
 
   /*
@@ -112,7 +180,7 @@ $(() => {
         duration: 300,
         complete: function() {
           $(this).css('left', "");
-          $(this).toggleClass('active');
+          $(this).toggleClass('activeSlide');
           return;
         }
       });
@@ -121,7 +189,7 @@ $(() => {
       }, {
         duration: 300,
         complete: function() {
-          $(this).toggleClass('active');
+          $(this).toggleClass('activeSlide');
           $(this).css('left', "");
           $photocarousel.data('active', true);
           return;
@@ -133,7 +201,7 @@ $(() => {
       }, {
         duration: 300,
         complete: function() {
-          $(this).toggleClass('active');
+          $(this).toggleClass('activeSlide');
           $(this).css('left', "");
           return;
         }
@@ -147,7 +215,7 @@ $(() => {
       }, {
         duration: 300,
         complete: function() {
-          $(this).toggleClass('active');
+          $(this).toggleClass('activeSlide');
           $(this).css('left', "");
           $photocarousel.data('active', true);
           return;
@@ -157,7 +225,9 @@ $(() => {
     return;
   }
 
-  // fetches images from flickr and displays them in the image container
+  /** fetches images from flickr and displays them in the image container
+    *
+    */
   function fetchImageHandler(event) {
     event.preventDefault();
     const $photocarousel = event.data.photocarousel;
@@ -175,7 +245,7 @@ $(() => {
         tags: keywords,
         safe_search: 1,
         content_type: 4,
-        per_page: 50
+        per_page: 20
       }
     }).done(function(rsp, textStatus, jqXHR) {
       console.log('done');
@@ -185,31 +255,11 @@ $(() => {
         return;
       } else {
         const $removedDivs = $photocarousel.children('.photocarousel-div').detach();
-        for (let i = 0; i < rsp.photos.photo.length; i++) {
-          let photo = rsp.photos.photo[i];
-          let id = photo.id;
-          let farmId = photo.farm;
-          let serverId = photo.server;
-          let secret = photo.secret;
-          let photoTitle = photo.title;
-          let mstzb = 'z'; //photosize
-          let photoURL = `https://farm${farmId}.staticflickr.com/${serverId}/${id}_${secret}_${mstzb}.jpg`
-          // (secondary) loading gif added over the container
-          // make elements to be added into the dom
-          // remove current images (possibly store them)
-          // reset the index -> display the images
-
-          // div -> background-image
-          // $photocarousel append(div)
-          let div = document.createElement('div');
-          $div = $(div);
-          $div.css('background-image', `url(${photoURL})`);
-          $div.attr('class', 'photocarousel-div');
-          $div.attr('title', photoTitle);
-          $photocarousel.append(div);
-        }
+        const data = rsp.photos.photo;
         $photocarousel.data('current-index', 0);
-        render(0, $photocarousel, 'fetch');
+        render(0, $photocarousel, 'fetch', {
+          data: data
+        });
       }
       return;
     }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -227,24 +277,63 @@ $(() => {
     }).ajaxComplete(function() {
       $(className).hide();
     });
+    return;
+  }
+
+  function bindHandlers($photocarousel){
+    const $fetchImageForm = $photocarousel.siblings('.fetch-image').find('.fetch-image-form');
+    const $photocarouselButton = $photocarousel.children('.photocarousel-button');
+    $photocarouselButton.click({
+      photocarousel: $photocarousel
+    }, photocarouselButtonHandler);
+    $fetchImageForm.submit({
+      photocarousel: $photocarousel
+    }, fetchImageHandler);
+
   }
 
   /*
    * Initialises which slide to be displayed first
    *
    */
-  function init(startingIndex, photocarousel) {
-    const $photocarouselButton = $(`${photocarousel} .photocarousel .photocarousel-button`);
-    const $photocarousel = $(photocarousel).children('.photocarousel');
-    const $fetchImage = $(photocarousel).children('.fetch-image');
-    $photocarousel.data('current-index', startingIndex);
-    $photocarousel.data('active', true);
-    $photocarouselButton.click({photocarousel: $photocarousel}, photocarouselButtonHandler);
-    $fetchImage.find('.fetch-image-form').submit({photocarousel: $photocarousel}, fetchImageHandler);
+  function init(options, photocarouselContainer) {
+    const defaults = {
+      startingIndex: 0,
+      numberOfSlides: 5,
+      searchFunction: true
+    };
+    const settings = $.extend(defaults, options);
+    const startingIndex = settings.startingIndex;
+    const numberOfSlides = settings.numberOfSlides;
+    const searchFunction = settings.searchFunction;
+
+    const $photocarouselContainer = $(photocarouselContainer);
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
+
+    $photocarousel.data({
+      'current-index': startingIndex,
+      active: true
+    });
+    render(startingIndex, $photocarousel, 'init', settings);
     bindLoader('.wait');
-    render(startingIndex, $photocarousel);
+    bindHandlers($photocarousel);
     return;
   }
-  init(0, '#photocarousel0');
-  init(1, '#photocarousel1');
+
+
+  const options0 = {
+    startingIndex: 0,
+    numberOfSlides: 1,
+    searchFunction: true
+  };
+  const options1 = {
+    startingIndex: 1,
+    numberOfSlides: 5,
+    searchFunction: false
+  };
+  init(options0, '#photocarousel0');
+  init(options1, '#photocarousel1');
+  // TODO: parameterise the photocarousel divs in init function
+  // store states in memory instead of on the dom
+  // create the divs using one single function
 });

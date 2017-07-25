@@ -30,7 +30,6 @@ header {
   width: 100%;
   margin-bottom: 20px;
 }
-
 .topnav {
   overflow: hidden;
 
@@ -62,6 +61,7 @@ header {
 .content {
   width: 100%;
   margin: auto;
+  margin-top: 70px;
 }
 
 /* Image container positioning */
@@ -78,8 +78,6 @@ header {
        -moz-box-sizing: content-box;
             box-sizing: content-box; /* use content box to consider the content for sizing only */
 
-  width: 300px;
-  height: 200px;
   margin-bottom: 20px;
   padding: 0px;
   background-color: rgba(0, 0, 0, 0.05);
@@ -93,8 +91,6 @@ header {
   display: block;
   visibility: hidden;
 
-  width: 300px;
-  height: 200px;
 }
 
 .photocarousel-div {
@@ -103,16 +99,18 @@ header {
   top: 0;
   left: 100%;
 
-
-  width: 300px;
-  height: 200px;
   min-height: 1px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.active {
+.photocarousel, .photocarousel-div, .duplicate  {
+  width: 300px;
+  height: 200px;
+}
+
+.activeSlide {
   left: 0%;
 }
 
@@ -185,7 +183,8 @@ header {
 
 .fetch-image {
   display: block;
-  margin: 20px auto;
+  margin: 0px auto;
+  margin-bottom: 20px;
   padding: 5px 20px;
 }
 
@@ -248,6 +247,7 @@ header {
     height: 426px;
   }
 }
+
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .content {
