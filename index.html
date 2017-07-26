@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"></link>
   <link rel='stylesheet' href="css/style.css"></link>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <!-- <script type="text/javascript" src="images.json"></script> -->
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
@@ -42,60 +43,42 @@
   <div class='content'>
     <div class='container-fluid'>
       <div class='row'>
-        <div id="photocarousel0">
+        <div id="photocarousel0" class='photo-carousel-container'>
           <div class='photocarousel col-md-12 col-lg-12'>
-            <button class='left photocarousel-button noselect' name='previous'>
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
+            <!-- <button class='left photocarousel-button noselect' name='previous'>
+                <span class="glyphicon glyphicon-chevron-left sr-only" aria-hidden="true">Previous</span>
             </button>
             <button class='right photocarousel-button noselect' name='next'>
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </button>
+              <span class="glyphicon glyphicon-chevron-right sr-only" aria-hidden="true">Next</span>
+            </button> -->
           </div>
 
-          <div class='fetch-image col-md-12 col-lg-12'>
-            <!-- <form class='fetch-image-form' action="">
-              <span>FETCH NEW IMAGES</span>
+          <!-- <div class='fetch-image col-md-12 col-lg-12'>
+            <form class='fetch-image-form' action="">
+              <label>Seach Terms</label>
               <div class="input-group">
-                <input type="text" class="form-control fetch-keywords" name='search-term' placeholder="Keywords">
-                <div class="input-group-btn">
+                <input type="text" class="form-control fetch-keywords" name='search-term' placeholder="Keywords to search for...">
+                <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">
                     <span class="glyphicon glyphicon-search"></span>
                   </button>
-                </div>
+                </span>
+                <span class="input-group-btn">
+                  <button class="btn btn-default reset" type="button">
+                    Reset Images
+                  </button>
+                </span>
               </div>
-            </form> -->
-          </div>
+            </form>
+          </div> -->
 
         </div>
       </div>
 
       <div class='row'>
         <div id="photocarousel1">
-          <div class='photocarousel col-md-12 col-lg-12'>
-            <button class='left photocarousel-button noselect' name='previous'>
-                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-              </button>
-            <button class='right photocarousel-button noselect' name='next'>
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </button>
-          </div>
 
-          <div class='fetch-image col-md-12 col-lg-12'>
-            <!-- <span>FETCH NEW IMAGES</span>
-            <form class='fetch-image-form' action="">
-              <div class="input-group">
-                <input type="text" class="form-control fetch-keywords" name='search-term' placeholder="Keywords">
-                <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit">
-                        <i class="glyphicon glyphicon-search"></i>
-                      </button>
-                </div>
-              </div>
-            </form> -->
+          <div class='photocarousel col-md-12 col-lg-12'>
           </div>
 
         </div>
@@ -105,7 +88,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class='description col-md-12'>
-            <h2>DESCRIPTION</h2>
+            <h2>DEMO DESCRIPTION</h2>
             <p>
               An image gallery of cats caught in the act. Click the left button to navigate to the previous cat or click the right button to navigate to the next cat.
             </p>
@@ -115,10 +98,9 @@
           </div>
           <div class='row'>
             <div class='col-md-12'>
-              <h2>NEW SECTION</h2>
+              <h2>INSTRUCTIONS</h2>
               <p>
-                Lorem ipsum dolor sit amet, elit partem vivendo in nec, sit at graeci gloriatur. Vero corrumpit vulputate ad cum, et nam dicat habemus. Sea an mazim dolor consequuntur. Nusquam ponderum inciderint et pri, in his appareat pertinax percipitur, ipsum tollit
-                ad vim. Cetero intellegat constituto in sed, est solet mucius corrumpit an, ea per melius molestie neglegentur.
+                To start using photocarousel plugin, create the markup then initialise it in javascript
               </p>
             </div>
           </div>
