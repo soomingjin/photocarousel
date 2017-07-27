@@ -19,54 +19,21 @@ $(() => {
     caption: "The white furred cat stares into the camera lens, admiring its beautiful coloured green eyes"
   }];
 
-
+  /**
+   * This function builds the path for the image
+   * @param {String} name name of the picture in images directory
+   * @returns {String} formatted string to the path of the image
+   */
   function buildLocalPath(name) {
     return `images/${name}`;
   }
-  /*
-   * handles the logic for clicking the buttons
-   */
-  function photocarouselButtonHandler(event) {
-    const $photocarousel = event.data.photocarousel;
-    const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
-    const buttonType = this.name;
-    const buttonActive = $photocarousel.photocarouselData.active;
-    const currentIndex = $photocarousel.photocarouselData.currentIndex;
-    let nextIndex = currentIndex;
 
-    //check which button is being pressed and determine the next index
-    if (buttonActive) {
-      $photocarousel.photocarouselData.active = false;
-      if (buttonType === "next" && $photocarouselDivs.length > 1) {
-        if (nextIndex >= $photocarouselDivs.length - 1) {
-          nextIndex = 0;
-        } else {
-          nextIndex += 1;
-        }
-      } else if (buttonType === "previous" && $photocarouselDivs.length > 1) {
-        if (nextIndex <= 0) {
-          nextIndex = $photocarouselDivs.length - 1;
-        } else {
-          nextIndex -= 1;
-        }
-      } else {
-        // TODO: allow the user to know that there is only one slide in the
-        // carousel, perhaps by adding dots to indicate the current slide
-        console.log("only 1 image displayed");
-        return;
-      }
-    } else {
-      return;
-    }
-
-    // $photocarousel.data('current-index', nextIndex);
-    $photocarousel.photocarouselData.currentIndex = nextIndex;
-    render({}, nextIndex, $photocarousel, buttonType);
-    return;
-  }
-
-  /*
-   * Handles the logic of the next slide to be displayed
+  /**
+   * This function builds photocarousel-divs
+   * @param {Object} opts name of the picture in images directory
+   * @param {Number} nextIndex name of the picture in images directory
+   * @param {jQuery} $photocarousel name of the picture in images directory
+   * @param {String} buttonType name of the picture in images directory
    */
   function render(opts, nextIndex, $photocarousel, buttonType = 'init') {
     let $photocarouselDivs = $photocarousel.children('.photocarousel-div');
@@ -266,7 +233,7 @@ $(() => {
     const keywords = $(this).find(".fetch-keywords").val().trim().split(/\s+/).join(',');
     try {
       if (!keywords){
-        throw('Empty keywords not allowed')
+        throw('Empty keywords not allowed');
       }
     } catch (e) {
       alert(`Error: ${e}`);
@@ -312,13 +279,54 @@ $(() => {
     return;
   }
 
-  function bindLoader(className) {
-    $(document).ajaxStart(function() {
-      $(className).show();
-    }).ajaxComplete(function() {
-      $(className).hide();
-    });
+  /*
+   * handles the logic for clicking the buttons
+   */
+  function photocarouselButtonHandler(event) {
+    const $photocarousel = event.data.photocarousel;
+    const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
+    const buttonType = this.name;
+    const buttonActive = $photocarousel.photocarouselData.active;
+    const currentIndex = $photocarousel.photocarouselData.currentIndex;
+    let nextIndex = currentIndex;
+
+    //check which button is being pressed and determine the next index
+    if (buttonActive) {
+      $photocarousel.photocarouselData.active = false;
+      if (buttonType === "next" && $photocarouselDivs.length > 1) {
+        if (nextIndex >= $photocarouselDivs.length - 1) {
+          nextIndex = 0;
+        } else {
+          nextIndex += 1;
+        }
+      } else if (buttonType === "previous" && $photocarouselDivs.length > 1) {
+        if (nextIndex <= 0) {
+          nextIndex = $photocarouselDivs.length - 1;
+        } else {
+          nextIndex -= 1;
+        }
+      } else {
+        // TODO: allow the user to know that there is only one slide in the
+        // carousel, perhaps by adding dots to indicate the current slide
+        console.log("only 1 image displayed");
+        return;
+      }
+    } else {
+      return;
+    }
+
+    // $photocarousel.data('current-index', nextIndex);
+    $photocarousel.photocarouselData.currentIndex = nextIndex;
+    render({}, nextIndex, $photocarousel, buttonType);
     return;
+  }
+
+
+  function resetFetchHandler(event){
+    console.log('reset clicked');
+    const $photocarousel = event.data.photocarousel;
+    const opts = $photocarousel.settings;
+    render(opts, opts.startingIndex, $photocarousel, 'init');
   }
 
   function bindHandlers($photocarousel){
@@ -337,11 +345,13 @@ $(() => {
     return;
   }
 
-  function resetFetchHandler(event){
-    console.log('reset clicked');
-    const $photocarousel = event.data.photocarousel;
-    const opts = $photocarousel.settings;
-    render(opts, opts.startingIndex, $photocarousel, 'init')
+  function bindLoader(className) {
+    $(document).ajaxStart(function() {
+      $(className).show();
+    }).ajaxComplete(function() {
+      $(className).hide();
+    });
+    return;
   }
   /*
    * Initialises which slide to be displayed first
@@ -397,4 +407,6 @@ $(() => {
   // TODO: parameterise the photocarousel divs in init function
   // store states in memory instead of on the dom
   // create the divs using one single function
+
+  // Implement visual demarcation of photocarousels
 });
