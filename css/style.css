@@ -1,4 +1,3 @@
-
 body {
   background-color: #f4f4f4;
 }
@@ -11,10 +10,8 @@ p {
   max-width: 90%;
   margin-right: auto;
   margin-left: auto;
-
   text-align: center;
   letter-spacing: 2px;
-
   font: 1em/2em Helvetica, sans-serif;
 }
 
@@ -22,6 +19,7 @@ div {
   margin: auto;
   text-align: center;
 }
+
 
 /* Style navbar and header */
 
@@ -31,62 +29,57 @@ header {
 }
 
 
-
 /* content body */
 
 .content {
-  width: 100%;
+  width: 100%;
   margin: auto;
   margin-top: 70px;
-
 }
+
 
 /* Image container positioning */
 
-.photo-carousel-container {
-  background-color: rgb(255, 255, 255);
+.photocarousel-container {
+  background-color: rgb(222, 222, 222);
 }
 
 .photocarousel {
   position: relative;
   right: 0;
   left: 0;
-
   clear: both;
   overflow: hidden;
-
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box; /* use content box to consider the content for sizing only */
-
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  /* use content box to consider the content for sizing only */
   margin-bottom: 5px;
   padding: 0px;
   background-color: rgba(0, 0, 0, 0.05);
-
 }
 
+
 /* Cat slide formatting */
+
 .duplicate {
   position: relative;
-
   display: block;
   visibility: hidden;
-
 }
 
 .photocarousel-div {
-  position: absolute;
+  position: absolute;
   z-index: 1;
   top: 0;
   left: 100%;
-
   min-height: 1px;
-  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 
-.photocarousel, .photocarousel-div, .duplicate  {
+.photocarousel, .photocarousel-div, .duplicate {
   width: 300px;
   height: 200px;
 }
@@ -95,40 +88,34 @@ header {
   left: 0%;
 }
 
+
 /* Button formatting */
 
 .photocarousel-button {
-  position: absolute;  z-index: 10;  top: 0;
-
+  position: absolute;
+  z-index: 10;
+  top: 0;
   width: 35%;
   height: 100%;
-
   padding: 0;
-
   cursor: pointer;
   transition-duration: 0.4s;
   text-align: center;
   text-decoration: none;
-
   color: white;
   border: none;
   background-color: rgba(0, 0, 0, 0);
-
 }
 
-.photocarousel-button.right{
+.photocarousel-button.right {
   right: 0;
-
   padding-right: 10px;
-
   text-align: right;
 }
 
-.photocarousel-button.left{
+.photocarousel-button.left {
   left: 0;
-
   padding-left: 10px;
-
   text-align: left;
 }
 
@@ -138,23 +125,31 @@ header {
 }
 
 .photocarousel-button.left:hover {
-  background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* Standard syntax */
+  background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* Standard syntax */
 }
-
 
 .photocarousel-button.right:hover {
-  background: -webkit-linear-gradient(-90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.2) , rgba(0, 0, 0, 0)); /* Standard syntax */
+  background: -webkit-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  /* Standard syntax */
 }
 
+
 /* Remove gradient */
-.photocarousel-button.right:hover,
-.photocarousel-button.left:hover{
+
+.photocarousel-button.right:hover, .photocarousel-button.left:hover {
   background: rgba(255, 255, 255, 0);
   background-color: rgba(255, 255, 255, 0);
 }
@@ -162,7 +157,6 @@ header {
 .photocarousel-button:focus {
   outline: none;
 }
-
 
 .fetch-image {
   display: block;
@@ -176,54 +170,91 @@ header {
 /*Animation*/
 
 @keyframes hidenext {
-  from {left: 0;}
-  to {left: -100%;}
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
 }
 
 @keyframes hideprevious {
-  from {left: 0;}
-  to {left: 100%;}
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
 }
 
 @keyframes shownext {
-  from {left: 100%;}
-  to {left: 0px;}
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0px;
+  }
 }
 
 @keyframes showprevious {
-  from {left: -100%;}
-  to {left: 0;}
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0;
+  }
 }
 
 
 /* Extra small devices (phones, less than 768px) */
+
+
 /* No media query since this is the default in Bootstrap */
 
+
 /* Small devices (potrait and small screen)*/
+
 @media (min-width: 350px) {
-  .photocarousel, .photocarousel-div, .duplicate  {
+  .content, .pphotocarousel-container {
+    width: 330px;
+  }
+  .photocarousel, .photocarousel-div, .duplicate {
     width: 330px;
     height: 220px;
   }
 }
+
+
 /* Small devices (potrait and small screen)*/
+
 @media (min-width: 450px) {
-  .photocarousel, .photocarousel-div, .duplicate  {
+  .content, .photocarousel-container {
+    width: 430px;
+  }
+  .photocarousel, .photocarousel-div, .duplicate {
     width: 430px;
     height: 286px;
   }
 }
+
+
 /* Small devices (landscape phones, 576px and up)*/
+
 @media (min-width: 576px) {
-  .photocarousel, .photocarousel-div, .duplicate  {
+  .content, .photocarousel-container {
+    width: 550px;
+  }
+  .photocarousel, .photocarousel-div, .duplicate {
     width: 550px;
     height: 366px;
   }
 }
 
+
 /* Small devices (tablets, 768px and up) */
+
 @media (min-width: 768px) {
-  .content {
+  .content, .photocarousel-container {
     width: 640px;
   }
   .photocarousel, .photocarousel-div, .duplicate {
@@ -232,9 +263,11 @@ header {
   }
 }
 
+
 /* Medium devices (desktops, 992px and up) */
+
 @media (min-width: 992px) {
-  .content {
+  .content, .photocarousel-container {
     width: 700px;
   }
   .photocarousel, .photocarousel-div, .duplicate {
@@ -243,39 +276,44 @@ header {
   }
 }
 
+
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
 
-}
-
+@media (min-width: 1200px) {}
 
 .noselect {
-  -webkit-user-select: none;  /* Safari */
-  -moz-user-select: none;  /* Firefox */
-  -ms-user-select: none;  /* Internet Explorer/Edge */
-  user-select: none;  /* Non-prefixed version, currently supported by Chrome and Opera */
-
-  -webkit-touch-callout: none;  /* iOS Safari */
-  -khtml-user-select: none;  /* Konqueror HTML */
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome and Opera */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
 }
 
-/*Added loading gif*/
-.wait{
-  display:    none;
-  position:   absolute;
-  z-index:    1000;
-  top:        0;
-  left:       0;
-  height:     100%;
-  width:      100%;
-  background: rgba(255, 255, 255, 0.5);
 
+/*Added loading gif*/
+
+.wait {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .loader {
-  margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   width: 5%;
+  margin: 0;
 }

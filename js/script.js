@@ -1,4 +1,4 @@
-$(() => {
+$(function() {
 
   // image array to store all the properties of the cat images, namely the path
   // and the caption.
@@ -61,7 +61,7 @@ $(() => {
 
     return;
   }
-  
+
   /**
    * buildDOM
    * This function builds photocarousel-divs
@@ -204,8 +204,8 @@ $(() => {
       .attr({class: 'input-group-btn'});
     const $submitBtn = $(document.createElement('button'))
       .attr({class: 'btn btn-default', type: 'submit'});
-    const $submitBtnLogo = $(document.createElement('span'))
-      .attr({class: 'glyphicon glyphicon-search'});
+    const $submitBtnLogo = $(document.createElement('i'))
+      .attr({class: 'fa fa-search', 'aria-hidden': true});
     const $resetBtn = $(document.createElement('button'))
       .text('Reset Images')
       .attr({class: 'btn btn-default reset', type: 'reset'});
@@ -440,7 +440,9 @@ $(() => {
    * @param {Object} options The options for the photocarousel
    * @param {String} photocarouselContainer The selector for the container to be referenced
    */
-  function init(options, photocarouselContainer) {
+
+  $.fn.photocarousel = function(options){
+    const $photocarouselContainer = this;
     const defaults = {
       startingIndex: 0,
       numberOfSlides: 5,
@@ -452,14 +454,14 @@ $(() => {
     const numberOfSlides = settings.numberOfSlides;
     const searchFunction = settings.searchFunction;
 
-    const $photocarouselContainer = $(photocarouselContainer);
+    $photocarouselContainer.toggleClass('photocarousel-container');
     const $photocarousel = $photocarouselContainer.children('.photocarousel');
 
     try {
       if (options.startingIndex >= options.numberOfSlides){
         throw('Index out of range of number of slides to be displayed');
       }
-      if (photocarouselContainer === undefined || photocarouselContainer === "" || !$photocarouselContainer.length) {
+      if ($photocarouselContainer === undefined || $photocarouselContainer === "" || !$photocarouselContainer.length) {
         throw('Please provide a valid selector for photocarouselContainer');
       }
       if (options.startingIndex > (images.length - 1) || options.startingIndex < 0){
@@ -486,7 +488,7 @@ $(() => {
     bindLoader('.wait');
     bindHandlers($photocarousel);
     return;
-  }
+  };
 
   const options0 = {
     startingIndex: 0,
@@ -497,11 +499,12 @@ $(() => {
     startingIndex: 1,
     numberOfSlides: 5,
   };
-  init(options0, '#photocarousel0');
-  init(options1, '#photocarousel1');
+  // init(options0, '#photocarousel0');
+  // init(options1, '#photocarousel1');
   // TODO: parameterise the photocarousel divs in init function
   // store states in memory instead of on the dom
   // create the divs using one single function
-
   // Implement visual demarcation of photocarousels
+  $("#photocarousel0").photocarousel(options0);
+  $("#photocarousel1").photocarousel(options1);
 });
