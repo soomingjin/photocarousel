@@ -13,13 +13,18 @@ The website should have a container to display a cat image and there should be b
 * Bootstrap 3
 
 # Learning Points
-* Code Documentation
 
-This is essential as it helps me to make the code more readable
-Use `data-*` attributes to store global variables in the DOM to prevent memory leaks
 Prefix `'$'` to jQuery variables
 Learning to write in ES6
 
+* Code Documentation
+
+This is essential as it helps me to make the code more readable
+
+* Storing states
+
+Use `data-*` attributes to store global variables in the DOM to prevent memory leaks
+Previously, I was using jQuery.data to store variables on the elements but the overhead cost of fetching the data is quite high. To ensure that the fetching of the data is faster and more efficient, I stored the data in memory instead. 
 
 * CSS3
 
@@ -28,13 +33,16 @@ Absolute positioned elements are essentially taken out of the flow of the markup
 
 * Button Event
 
-```javascript
-event.target
-```
-and
-```javascript
-event.currentTarget
-```
-are very different, `currentTarget` was used I needed to find the exact button that was pressed.
+`event.target` vs `event.currentTarget`
 
-*
+are very different, `currentTarget` was used as I needed to find the exact button that was pressed.
+
+However, I did not need to use `event.currentTarget` and I have replaced it with `this` context from jQuery event binding.
+
+* Making a jQeury Plugin
+
+WIP
+
+* UX Consideration
+
+It is important to carefully consider the UX portion of the plugin. Implementing features have to be purposeful and easy to use.
