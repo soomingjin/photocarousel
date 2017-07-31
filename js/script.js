@@ -297,6 +297,7 @@ $(function() {
     event.preventDefault();
     const $photocarousel = event.data.photocarousel;
     const keywords = $(this).find(".fetch-keywords").val().trim().split(/\s+/).join(',');
+    const $loader = $photocarousel.children('.wait');
     try {
       if (!keywords){
         throw('Empty keywords not allowed');
@@ -307,6 +308,7 @@ $(function() {
     }
     const apiKey = "fd5f20a53c009a33506904c2ab164800";
     const flickrurl = "https://api.flickr.com/services/rest/";
+    $loader.show();
     var xhr = $.ajax({
       dataType: "json",
       url: flickrurl,
@@ -338,9 +340,15 @@ $(function() {
       console.log('fail');
       console.log('textStatus = ' + textStatus);
       console.log('errorThrown = ' + errorThrown);
+    }).always(function(){
+      $loader.hide();
     });
 
     return;
+  }
+
+  function showLoader(xhr){
+
   }
 
   /**
@@ -419,20 +427,6 @@ $(function() {
     return;
   }
 
-  /**
-   * bindHandlers
-   * This function binds the handler for displaying the loader div when
-   * an ajax method is being called
-   * @param {String} className The name of the loader div
-   */
-  function bindLoader(className) {
-    $(document).ajaxStart(function() {
-      $(className).show();
-    }).ajaxComplete(function() {
-      $(className).hide();
-    });
-    return;
-  }
 
   /**
    * init
@@ -440,7 +434,6 @@ $(function() {
    * @param {Object} options The options for the photocarousel
    * @param {String} photocarouselContainer The selector for the container to be referenced
    */
-
   $.fn.photocarousel = function(options){
     const $photocarouselContainer = this;
     const defaults = {
@@ -485,7 +478,6 @@ $(function() {
       originalImages: true
     };
     render(startingIndex, $photocarousel, 'init');
-    bindLoader('.wait');
     bindHandlers($photocarousel);
     return;
   };
@@ -498,13 +490,17 @@ $(function() {
   const options1 = {
     startingIndex: 1,
     numberOfSlides: 5,
+    searchFunction: true
   };
-  // init(options0, '#photocarousel0');
-  // init(options1, '#photocarousel1');
-  // TODO: parameterise the photocarousel divs in init function
-  // store states in memory instead of on the dom
-  // create the divs using one single function
-  // Implement visual demarcation of photocarousels
+
+
   $("#photocarousel0").photocarousel(options0);
   $("#photocarousel1").photocarousel(options1);
 });
+// User initialise with their own images
+// endpoint modification
+// less strict on the fetch image, can be placed somewhere else
+// dots to indicate the number of slides inside the carousel
+// this reference to the object for oop
+// add row to the photocarousel div class
+// loading gif should only show for its own photocarousel
