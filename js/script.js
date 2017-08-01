@@ -35,7 +35,8 @@ $(function() {
    * @param {jQuery} $photocarousel name of the picture in images directory
    * @param {String} buttonType name of the button being pressed
    */
-  function render(nextIndex, $photocarousel, buttonType = 'init') {
+  function render(nextIndex, $photocarouselContainer, buttonType = 'init') {
+    let $photocarousel = $photocarouselContainer.children('.photocarousel');
     let $photocarouselDivs = $photocarousel.children('.photocarousel-div');
     let $active = $photocarousel.children('.activeSlide');
     let $nextSlide = $photocarouselDivs.eq(nextIndex);
@@ -43,13 +44,14 @@ $(function() {
     const validAnimationButtons = ['previous', 'next'];
     try {
       if (validBuildButtons.includes(buttonType)) {
-        buildDOM($photocarousel, buttonType);
+        buildDOM($photocarouselContainer, buttonType);
+        $photocarousel = $photocarouselContainer.children('.photocarousel');
         $photocarouselDivs = $photocarousel.children('.photocarousel-div');
         $active = $photocarousel.children('.activeSlide');
         $nextSlide = $photocarouselDivs.eq(nextIndex);
         $nextSlide.toggleClass('activeSlide');
       } else if (validAnimationButtons.includes(buttonType)) {
-        animateSlide($active, $nextSlide, buttonType, $photocarousel);
+        animateSlide($active, $nextSlide, buttonType, $photocarouselContainer);
       } else {
         throw (buttonType);
       }
@@ -68,16 +70,18 @@ $(function() {
    * @param {JQuery} $photocarousel The container to be appended to
    * @param {String} buttonType Name of button that is being pressed
    */
-  function buildDOM($photocarousel, buttonType) {
+  function buildDOM($photocarouselContainer, buttonType) {
+    let $photocarousel = $photocarouselContainer.children('.photocarousel');
     const $removedDivs = $photocarousel.children('.photocarousel-div').detach();
-    const settings = $photocarousel.settings;
+    const settings = $photocarouselContainer.settings;
     if (buttonType === 'init') {
-      createButtons(settings.numberOfSlides, $photocarousel);
-      createLoaderDiv($photocarousel);
-      createPhotocarouselDivs(settings.numberOfSlides, $photocarousel);
-      createSearchFunction(settings.searchFunction, $photocarousel);
+      createPhotocarousel($photocarouselContainer);
+      createButtons(settings.numberOfSlides, $photocarouselContainer);
+      createLoaderDiv($photocarouselContainer);
+      createPhotocarouselDivs(settings.numberOfSlides, $photocarouselContainer);
+      createSearchFunction(settings.searchFunction, $photocarouselContainer);
     } else if (buttonType === 'fetch') {
-      const data = $photocarousel.photocarouselData.flickrData;
+      const data = $photocarouselContainer.photocarouselData.imageData;
       if (data) {
         for (let i = 0; i < data.length; i++) {
           let photo = data[i];
@@ -97,15 +101,27 @@ $(function() {
 
           createSinglePhotocarouselDiv(photoURL, photoTitle, $photocarousel);
         }
-        createButtons(data.length, $photocarousel);
+        createButtons(data.length, $photocarouselContainer);
       }
       if (data.length === 1){
-        removeButtons($photocarousel);
+        removeButtons($photocarouselContainer);
       }
     } else if (buttonType === 'reset'){
-      createButtons(settings.numberOfSlides, $photocarousel);
-      createPhotocarouselDivs(settings.numberOfSlides, $photocarousel);
+      createButtons(settings.numberOfSlides, $photocarouselContainer);
+      createPhotocarouselDivs(settings.numberOfSlides, $photocarouselContainer);
     }
+    return;
+  }
+
+  /**
+   * createPhotocarousel
+   * This function creates photocarousel to be attached to the DOM
+   * @param {JQuery} $photocarouselContainer The container to be appended to
+   */
+  function createPhotocarousel($photocarouselContainer){
+    $(document.createElement('div'))
+      .attr({class: 'photocarousel col-md-12 col-lg-12'})
+      .appendTo($photocarouselContainer);
     return;
   }
 
@@ -115,16 +131,17 @@ $(function() {
    * @param {Number} numberOfSlides number of slides to be displayed
    * @param {JQuery} $photocarousel The container to be appended to
    */
-  function createButtons(numberOfSlides, $photocarousel){
-    if (!$photocarousel.settings.buttonsCreated){
+  function createButtons(numberOfSlides, $photocarouselContainer){
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
+    if (!$photocarouselContainer.settings.buttonsCreated){
       const $prevButton = $(document.createElement('button')).attr({class: 'left photocarousel-button noselect', name: 'previous'}).appendTo($photocarousel);
       const $prevButtonSymbol = $(document.createElement('span')).attr({class: 'glyphicon glyphicon-chevron-left', 'aria-hidden': true}).appendTo($prevButton);
       const $prevButtonName = $(document.createElement('span')).text('Previous').attr({class: 'sr-only'}).appendTo($prevButton);
       const $nextButton = $(document.createElement('button')).attr({class: 'right photocarousel-button noselect', name: 'next'}).appendTo($photocarousel);
       const $nextButtonSymbol = $(document.createElement('span')).attr({class: 'glyphicon glyphicon-chevron-right', 'aria-hidden': true}).appendTo($nextButton);
       const $nextButtonName = $(document.createElement('span')).text('Next').attr({class: 'sr-only'}).appendTo($nextButton);
-      $photocarousel.settings.buttonsCreated = true;
-    } else if ($photocarousel.settings.buttonsCreated && numberOfSlides > 1){
+      $photocarouselContainer.settings.buttonsCreated = true;
+    } else if ($photocarouselContainer.settings.buttonsCreated && numberOfSlides > 1){
       $photocarousel.find('.photocarousel-button').show();
     }
     if (numberOfSlides < 2){
@@ -140,7 +157,8 @@ $(function() {
    * @param {Number} numberOfSlides number of slides to be displayed
    * @param {JQuery} $photocarousel The container to be appended to
    */
-  function createPhotocarouselDivs(numberOfSlides, $photocarousel){
+  function createPhotocarouselDivs(numberOfSlides, $photocarouselContainer){
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
     for (let i = 0; i < numberOfSlides; i++) {
       let imagePath = buildLocalPath(images[i].path);
       let imageCaption = images[i].caption;
@@ -159,8 +177,7 @@ $(function() {
     // source: http://jsben.ch/bgvCV
     $(document.createElement('div'))
       .css('background-image', `url(${photoURL})`)
-      .attr('class', 'photocarousel-div')
-      .attr('title', photoTitle)
+      .attr({class: 'photocarousel-div', title: photoTitle})
       .appendTo($photocarousel);
     return;
   }
@@ -170,14 +187,13 @@ $(function() {
    * This function creates a loader div to be attached to the DOM
    * @param {JQuery} $photocarousel The container to be appended to
    */
-  function createLoaderDiv($photocarousel) {
-
+  function createLoaderDiv($photocarouselContainer) {
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
     $(document.createElement('div'))
       .attr('class', 'wait')
       .appendTo($photocarousel);
     $(document.createElement('img'))
-      .attr('class', 'loader')
-      .attr('src', 'images/ajax-loader.gif')
+      .attr({class: 'loader', src: 'images/ajax-loader.gif'})
       .appendTo($photocarousel.children('.wait'));
 
     return;
@@ -189,8 +205,9 @@ $(function() {
    * @param {boolean} searchFunction create search bar or not
    * @param {JQuery} $photocarousel The container to be appended to
    */
-  function createSearchFunction(searchFunction, $photocarousel) {
-    if (searchFunction && !$photocarousel.settings.searchFunctionCreated) {
+  function createSearchFunction(searchFunction, $photocarouselContainer) {
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
+    if (searchFunction && !$photocarouselContainer.settings.searchFunctionCreated) {
     const $fetchImageDiv = $(document.createElement('div')).attr('class', 'fetch-image col-md-12 col-lg-12').insertAfter($photocarousel);
     const $fetchImageForm = $(document.createElement('form'))
       .attr({class: 'fetch-image-form', action: ""});
@@ -212,7 +229,7 @@ $(function() {
     // const $resetBtnLogo = $(document.createElement('span'))
     //   .attr({class: 'glyphicon glyphicon-search'});
     $fetchImageDiv.append($fetchImageForm.append($labelTitle, $inputGroup.append($fetchKeywords, $inputGroupBtn.append($submitBtn.append($submitBtnLogo), $resetBtn))));
-    $photocarousel.settings.searchFunctionCreated = true;
+    $photocarouselContainer.settings.searchFunctionCreated = true;
     }
   }
 
@@ -233,7 +250,7 @@ $(function() {
    * @param {String} $command name of the command to determine direction of animation
    * @param {JQuery} $photocarousel The container to be referenced
    */
-  function animateSlide($active, $nextSlide, command, $photocarousel) {
+  function animateSlide($active, $nextSlide, command, $photocarouselContainer) {
     if (command === "next") {
       $active.animate({
         left: "-100%"
@@ -252,8 +269,7 @@ $(function() {
         complete: function() {
           $(this).toggleClass('activeSlide');
           $(this).css('left', "");
-          // $photocarousel.data('active', true);
-          $photocarousel.photocarouselData.active = true;
+          $photocarouselContainer.photocarouselData.active = true;
           return;
         }
       });
@@ -279,8 +295,7 @@ $(function() {
         complete: function() {
           $(this).toggleClass('activeSlide');
           $(this).css('left', "");
-          // $photocarousel.data('active', true);
-          $photocarousel.photocarouselData.active = true;
+          $photocarouselContainer.photocarouselData.active = true;
           return;
         }
       });
@@ -295,7 +310,8 @@ $(function() {
    */
   function fetchImageHandler(event) {
     event.preventDefault();
-    const $photocarousel = event.data.photocarousel;
+    const $photocarouselContainer = event.data.photocarouselContainer;
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
     const keywords = $(this).find(".fetch-keywords").val().trim().split(/\s+/).join(',');
     const $loader = $photocarousel.children('.wait');
     try {
@@ -328,12 +344,10 @@ $(function() {
         console.log('not ok');
         return;
       } else {
-        // const $removedDivs = $photocarousel.children('.photocarousel-div').detach();
         const data = rsp.photos.photo;
-        $photocarousel.photocarouselData.flickrData = data;
-        // $photocarousel.data('current-index', 0);
-        $photocarousel.photocarouselData.currentIndex = 0;
-        render(0, $photocarousel, 'fetch');
+        $photocarouselContainer.photocarouselData.imageData = data;
+        $photocarouselContainer.photocarouselData.currentIndex = 0;
+        render(0, $photocarouselContainer, 'fetch');
       }
       return;
     }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -357,16 +371,17 @@ $(function() {
    * @param {event} event event object when clicked
    */
   function photocarouselButtonHandler(event) {
-    const $photocarousel = event.data.photocarousel;
+    const $photocarouselContainer = event.data.photocarouselContainer;
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
     const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
     const buttonType = this.name;
-    const buttonActive = $photocarousel.photocarouselData.active;
-    const currentIndex = $photocarousel.photocarouselData.currentIndex;
+    const buttonActive = $photocarouselContainer.photocarouselData.active;
+    const currentIndex = $photocarouselContainer.photocarouselData.currentIndex;
     let nextIndex = currentIndex;
 
     //check which button is being pressed and determine the next index
     if (buttonActive) {
-      $photocarousel.photocarouselData.active = false;
+      $photocarouselContainer.photocarouselData.active = false;
       if (buttonType === "next" && $photocarouselDivs.length > 1) {
         if (nextIndex >= $photocarouselDivs.length - 1) {
           nextIndex = 0;
@@ -390,8 +405,8 @@ $(function() {
     }
 
     // $photocarousel.data('current-index', nextIndex);
-    $photocarousel.photocarouselData.currentIndex = nextIndex;
-    render(nextIndex, $photocarousel, buttonType);
+    $photocarouselContainer.photocarouselData.currentIndex = nextIndex;
+    render(nextIndex, $photocarouselContainer, buttonType);
     return;
   }
 
@@ -401,9 +416,10 @@ $(function() {
    * @param {event} event event object when clicked
    */
   function resetFetchHandler(event){
-    const $photocarousel = event.data.photocarousel;
-    const settings = $photocarousel.settings;
-    render(settings.startingIndex, $photocarousel, this.type);
+  const $photocarouselContainer = event.data.photocarouselContainer;
+  const $photocarousel = $photocarouselContainer.children('.photocarousel');
+  const settings = $photocarouselContainer.settings;
+  render(settings.startingIndex, $photocarouselContainer, this.type);
   }
 
   /**
@@ -411,18 +427,19 @@ $(function() {
    * This function handles the logic for binding the handlers to the buttons
    * @param {JQuery} $photocarousel The container to be referenced
    */
-  function bindHandlers($photocarousel){
+  function bindHandlers($photocarouselContainer){
+    const $photocarousel = $photocarouselContainer.children('.photocarousel');
     const $fetchImageForm = $photocarousel.siblings('.fetch-image').find('.fetch-image-form');
     const $photocarouselButton = $photocarousel.children('.photocarousel-button');
     const $resetButton = $photocarousel.siblings().find('.reset');
     $photocarouselButton.click({
-      photocarousel: $photocarousel
+      photocarouselContainer: $photocarouselContainer
     }, photocarouselButtonHandler);
     $fetchImageForm.submit({
-      photocarousel: $photocarousel
+      photocarouselContainer: $photocarouselContainer
     }, fetchImageHandler);
     $resetButton.click({
-      photocarousel: $photocarousel
+      photocarouselContainer: $photocarouselContainer
     }, resetFetchHandler);
     return;
   }
@@ -448,8 +465,6 @@ $(function() {
     const searchFunction = settings.searchFunction;
 
     $photocarouselContainer.toggleClass('photocarousel-container');
-    const $photocarousel = $photocarouselContainer.children('.photocarousel');
-
     try {
       if (options.startingIndex >= options.numberOfSlides){
         throw('Index out of range of number of slides to be displayed');
@@ -468,17 +483,17 @@ $(function() {
     }
 
     //appending settings and photocarousel data to the jquery object
-    $photocarousel.settings = settings;
-    $photocarousel.photocarouselData = {
+    $photocarouselContainer.settings = settings;
+    $photocarouselContainer.photocarouselData = {
       currentIndex: startingIndex,
       active: true,
-      flickrData: undefined,
+      imageData: undefined,
       buttonsCreated: false,
       searchFunctionCreated: false,
       originalImages: true
     };
-    render(startingIndex, $photocarousel, 'init');
-    bindHandlers($photocarousel);
+    render(startingIndex, $photocarouselContainer, 'init');
+    bindHandlers($photocarouselContainer);
     return;
   };
 
