@@ -1,4 +1,4 @@
-$(function() {
+(function( $ ) {
 
   // image array to store all the properties of the cat images, namely the path
   // and the caption.
@@ -497,21 +497,8 @@ $(function() {
     return;
   };
 
-  const options0 = {
-    startingIndex: 0,
-    numberOfSlides: 1,
-    searchFunction: true
-  };
-  const options1 = {
-    startingIndex: 1,
-    numberOfSlides: 5,
-    searchFunction: true
-  };
+}( jQuery ));
 
-
-  $("#photocarousel0").photocarousel(options0);
-  $("#photocarousel1").photocarousel(options1);
-});
 // User initialise with their own images
 // endpoint modification
 // less strict on the fetch image, can be placed somewhere else
