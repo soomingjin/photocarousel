@@ -6,7 +6,8 @@
   const defaults = {
     startingIndex: 0,
     numberOfSlides: 5,
-    searchFunction: false
+    searchFunction: false,
+    isUserImages: true
   };
   const defaultPhotocarouselData = {
     currentIndex: undefined,
@@ -65,6 +66,7 @@
     const startingIndex = options.startingIndex;
     const numberOfSlides = options.numberOfSlides;
     const searchFunction = options.searchFunction;
+    const isUserImages = options.isUserImages;
     _.photocarouselData.currentIndex = startingIndex;
     _.photocarouselData.nextIndex = startingIndex;
     _.$photocarouselContainer.toggleClass('photocarousel-container');
@@ -82,6 +84,12 @@
       if (numberOfSlides > images.length) {
         throw ('numberOfSlides is more than local images size, consider choosing a smaller number');
       }
+      if (isUserImages) {
+        if (_.$photocarouselContainer.children('img').length < 1) {
+          throw ('Photocarousel Container must contain img tags');
+        }
+      }
+
     } catch (e) {
       console.error(e);
     }
@@ -234,10 +242,20 @@
    */
   Photocarousel.prototype.createPhotocarouselDivs = function() {
     const _ = this;
-    for (let i = 0; i < _.options.numberOfSlides; i++) {
-      let imagePath = buildLocalPath(images[i].path);
-      let imageCaption = images[i].caption;
-      _.createSinglePhotocarouselDiv(imagePath, imageCaption);
+    console.log('left s troke');
+    if (!_.options.isUserImages) {
+      for (let i = 0; i < _.options.numberOfSlides; i++) {
+        let imagePath = buildLocalPath(images[i].path);
+        let imageCaption = images[i].caption;
+        _.createSinglePhotocarouselDiv(imagePath, imageCaption);
+      }
+    } else {
+      const $imgs = _.$photocarouselContainer.children('img').detach();
+      $imgs.each(function(i){
+        let imagePath = $(this).attr('src')
+        let imageCaption = $(this).attr('title')
+        _.createSinglePhotocarouselDiv(imagePath, imageCaption);
+      })
     }
   };
 

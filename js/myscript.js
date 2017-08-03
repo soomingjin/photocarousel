@@ -3,11 +3,13 @@ $(function(){
     startingIndex: 0,
     numberOfSlides: 2,
     searchFunction: true
+    // isUserImages: false
   };
   const options1 = {
     startingIndex: 1,
     numberOfSlides: 5,
-    searchFunction: true
+    searchFunction: true,
+    isUserImages: false
   };
 
   $("#photocarousel0").Photocarousel(options0);
