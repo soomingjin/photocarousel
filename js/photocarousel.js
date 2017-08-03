@@ -252,10 +252,10 @@
     } else {
       const $imgs = _.$photocarouselContainer.children('img').detach();
       $imgs.each(function(i){
-        let imagePath = $(this).attr('src')
-        let imageCaption = $(this).attr('title')
+        let imagePath = $(this).attr('src');
+        let imageCaption = $(this).attr('title');
         _.createSinglePhotocarouselDiv(imagePath, imageCaption);
-      })
+      });
     }
   };
 
