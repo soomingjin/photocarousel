@@ -54,7 +54,7 @@
     _.$photocarousel = _.$photocarouselContainer.children('.photocarousel');
     _.options = $.extend({}, defaults, options);
 
-    _.photocarouselData = defaultPhotocarouselData;
+    _.photocarouselData = $.extend({}, defaultPhotocarouselData);
     _.photocarouselData.currentIndex = options.startingIndex;
     _.init();
   }
@@ -106,6 +106,7 @@
     let $photocarouselDivs = $photocarousel.children('.photocarousel-div');
     let $active = $photocarousel.children('.activeSlide');
     let $nextSlide = $photocarouselDivs.eq(nextIndex);
+    console.log(_.$photocarouselContainer);
     if (validBuildButtons.includes(buttonType)) {
       _.buildDOM(buttonType);
       $photocarouselDivs = _.$photocarousel.children('.photocarousel-div');
@@ -343,7 +344,6 @@
    * @param {String} $command name of the command to determine direction of animation
    */
   Photocarousel.prototype.animateSlide = function($active, $nextSlide, command) {
-    console.log('annimating');
     const _ = this;
     if (command === "next") {
       $active.animate({
@@ -548,11 +548,10 @@
   };
   // TODO:
   // User initialise with their own images
+  // dots to indicate the number of slides inside the carousel
   // endpoint modification
   // less strict on the fetch image, can be placed somewhere else
-  // dots to indicate the number of slides inside the carousel
   // this reference to the object for oop
   // add row to the photocarousel div class
-  // loading gif should only show for its own photocarousel
 
 })(jQuery, window, document);

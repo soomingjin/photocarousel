@@ -7,6 +7,7 @@ The website should have a container to display a cat image and there should be b
 # Demo
 [Link here to demo](https://soomingjin.github.io/photocarousel/)
 
+Only image elements should be used for the slideshow
 
 # Dependencies
 * jQuery 3.2.1
@@ -24,7 +25,7 @@ This is essential as it helps me to make the code more readable
 * Storing states
 
 Use `data-*` attributes to store global variables in the DOM to prevent memory leaks
-Previously, I was using jQuery.data to store variables on the elements but the overhead cost of fetching the data is quite high. To ensure that the fetching of the data is faster and more efficient, I stored the data in memory instead. 
+Previously, I was using jQuery.data to store variables on the elements but the overhead cost of fetching the data is quite high. To ensure that the fetching of the data is faster and more efficient, I stored the data in memory instead.
 
 * CSS3
 
