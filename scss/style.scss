@@ -33,6 +33,7 @@ header {
 /* Image container positioning */
 .photocarousel-container {
   background-color: rgb(222, 222, 222);
+  margin-bottom: 50px;
 }
 
 .photocarousel {
@@ -45,7 +46,6 @@ header {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   /* use content box to consider the content for sizing only */
-  margin-bottom: 5px;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.05);
 }
@@ -79,6 +79,28 @@ header {
 .activeSlide {
   left: 0;
 }
+
+.photocarousel-dot-container {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  a, button {
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0 5px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 /* Button formatting */
 .photocarousel-button {
   position: absolute;
@@ -114,7 +136,7 @@ header {
 
 .fetch-image {
   display: block;
-  margin: 0 auto 30px;
+  margin: 0 auto;
   padding: 5px 20px;
   text-align: left;
 }

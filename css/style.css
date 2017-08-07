@@ -1,10 +1,8 @@
 body {
-  background-color: #f4f4f4;
-}
+  background-color: #f4f4f4; }
 
 h2 {
-  letter-spacing: 2px;
-}
+  letter-spacing: 2px; }
 
 p {
   max-width: 90%;
@@ -12,37 +10,26 @@ p {
   margin-left: auto;
   text-align: center;
   letter-spacing: 2px;
-  font: 1em/2em Helvetica, sans-serif;
-}
+  font: 1em/2em Helvetica, sans-serif; }
 
 div {
   margin: auto;
-  text-align: center;
-}
-
+  text-align: center; }
 
 /* Style navbar and header */
-
 header {
   width: 100%;
-  margin-bottom: 20px;
-}
-
+  margin-bottom: 20px; }
 
 /* content body */
-
 .content {
   width: 100%;
-  margin: auto;
-  margin-top: 70px;
-}
-
+  margin: 70px auto auto; }
 
 /* Image container positioning */
-
 .photocarousel-container {
-  background-color: rgb(222, 222, 222);
-}
+  background-color: #dedede;
+  margin-bottom: 50px; }
 
 .photocarousel {
   position: relative;
@@ -54,19 +41,14 @@ header {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   /* use content box to consider the content for sizing only */
-  margin-bottom: 5px;
-  padding: 0px;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.05); }
 
 /* Cat slide formatting */
-
 .duplicate {
   position: relative;
   display: block;
-  visibility: hidden;
-}
+  visibility: hidden; }
 
 .photocarousel-div {
   position: absolute;
@@ -76,21 +58,36 @@ header {
   min-height: 1px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-}
+  background-size: contain; }
 
-.photocarousel, .photocarousel-div, .duplicate {
+.duplicate,
+.photocarousel,
+.photocarousel-div {
   width: 300px;
-  height: 200px;
-}
+  height: 200px; }
 
 .activeSlide {
-  left: 0%;
-}
+  left: 0; }
 
+.photocarousel-dot-container {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  align-items: center;
+  justify-content: center; }
+  .photocarousel-dot-container a, .photocarousel-dot-container button {
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0 5px; }
+    .photocarousel-dot-container a:focus, .photocarousel-dot-container button:focus {
+      outline: none; }
 
 /* Button formatting */
-
 .photocarousel-button {
   position: absolute;
   z-index: 10;
@@ -104,183 +101,103 @@ header {
   text-decoration: none;
   color: white;
   border: none;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.photocarousel-button.right {
-  right: 0;
-  padding-right: 10px;
-  text-align: right;
-}
-
-.photocarousel-button.left {
-  left: 0;
-  padding-left: 10px;
-  text-align: left;
-}
-
-.photocarousel-button:hover {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.photocarousel-button.left:hover {
-  background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* Standard syntax */
-}
-
-.photocarousel-button.right:hover {
-  background: -webkit-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-  /* Standard syntax */
-}
-
-
-/* Remove gradient */
-
-.photocarousel-button.right:hover, .photocarousel-button.left:hover {
-  background: rgba(255, 255, 255, 0);
-  background-color: rgba(255, 255, 255, 0);
-}
-
-.photocarousel-button:focus {
-  outline: none;
-}
+  background-color: rgba(0, 0, 0, 0); }
+  .photocarousel-button.right {
+    right: 0;
+    padding-right: 10px;
+    text-align: right; }
+  .photocarousel-button.left {
+    left: 0;
+    padding-left: 10px;
+    text-align: left; }
+  .photocarousel-button:focus {
+    outline: none; }
 
 .fetch-image {
   display: block;
-  margin: 0px auto;
-  margin-bottom: 30px;
+  margin: 0 auto;
   padding: 5px 20px;
-  text-align: left;
-}
-
+  text-align: left; }
 
 /*Animation*/
-
 @keyframes hidenext {
   from {
-    left: 0;
-  }
+    left: 0; }
   to {
-    left: -100%;
-  }
-}
-
+    left: -100%; } }
 @keyframes hideprevious {
   from {
-    left: 0;
-  }
+    left: 0; }
   to {
-    left: 100%;
-  }
-}
-
+    left: 100%; } }
 @keyframes shownext {
   from {
-    left: 100%;
-  }
+    left: 100%; }
   to {
-    left: 0px;
-  }
-}
-
+    left: 0; } }
 @keyframes showprevious {
   from {
-    left: -100%;
-  }
+    left: -100%; }
   to {
-    left: 0;
-  }
-}
-
-
+    left: 0; } }
 /* Extra small devices (phones, less than 768px) */
-
-
 /* No media query since this is the default in Bootstrap */
-
-
 /* Small devices (potrait and small screen)*/
-
 @media (min-width: 350px) {
-  .content, .pphotocarousel-container {
-    width: 330px;
-  }
-  .photocarousel, .photocarousel-div, .duplicate {
-    width: 330px;
-    height: 220px;
-  }
-}
+  .content,
+  .pphotocarousel-container {
+    width: 330px; }
 
-
+  .duplicate,
+  .photocarousel,
+  .photocarousel-div {
+    width: 330px;
+    height: 220px; } }
 /* Small devices (potrait and small screen)*/
-
 @media (min-width: 450px) {
-  .content, .photocarousel-container {
-    width: 430px;
-  }
-  .photocarousel, .photocarousel-div, .duplicate {
-    width: 430px;
-    height: 286px;
-  }
-}
+  .content,
+  .photocarousel-container {
+    width: 430px; }
 
-
+  .duplicate,
+  .photocarousel,
+  .photocarousel-div {
+    width: 430px;
+    height: 286px; } }
 /* Small devices (landscape phones, 576px and up)*/
-
 @media (min-width: 576px) {
-  .content, .photocarousel-container {
-    width: 550px;
-  }
-  .photocarousel, .photocarousel-div, .duplicate {
-    width: 550px;
-    height: 366px;
-  }
-}
+  .content,
+  .photocarousel-container {
+    width: 550px; }
 
-
+  .duplicate,
+  .photocarousel,
+  .photocarousel-div {
+    width: 550px;
+    height: 366px; } }
 /* Small devices (tablets, 768px and up) */
-
 @media (min-width: 768px) {
-  .content, .photocarousel-container {
-    width: 640px;
-  }
-  .photocarousel, .photocarousel-div, .duplicate {
-    width: 640px;
-    height: 426px;
-  }
-}
+  .content,
+  .photocarousel-container {
+    width: 640px; }
 
-
+  .duplicate,
+  .photocarousel,
+  .photocarousel-div {
+    width: 640px;
+    height: 426px; } }
 /* Medium devices (desktops, 992px and up) */
-
 @media (min-width: 992px) {
-  .content, .photocarousel-container {
-    width: 700px;
-  }
-  .photocarousel, .photocarousel-div, .duplicate {
-    width: 700px;
-    height: 466px;
-  }
-}
+  .content,
+  .photocarousel-container {
+    width: 700px; }
 
-
+  .duplicate,
+  .photocarousel,
+  .photocarousel-div {
+    width: 700px;
+    height: 466px; } }
 /* Large devices (large desktops, 1200px and up) */
-
-@media (min-width: 1200px) {}
-
 .noselect {
   -webkit-user-select: none;
   /* Safari */
@@ -293,12 +210,9 @@ header {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -khtml-user-select: none;
-  /* Konqueror HTML */
-}
-
+  /* Konqueror HTML */ }
 
 /*Added loading gif*/
-
 .wait {
   position: absolute;
   z-index: 1000;
@@ -307,13 +221,13 @@ header {
   display: none;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5);
-}
+  background: rgba(255, 255, 255, 0.5); }
 
 .loader {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 5%;
-  margin: 0;
-}
+  margin: 0; }
+
+/*# sourceMappingURL=style.css.map */

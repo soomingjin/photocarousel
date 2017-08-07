@@ -1,5 +1,4 @@
-;
-(function($, window, document) {
+;(function($, window, document) {
 
   // initialise defaults
   const pluginName = "Photocarousel";
@@ -114,7 +113,6 @@
     let $photocarouselDivs = $photocarousel.children('.photocarousel-div');
     let $active = $photocarousel.children('.activeSlide');
     let $nextSlide = $photocarouselDivs.eq(nextIndex);
-    console.log(_.$photocarouselContainer);
     if (validBuildButtons.includes(buttonType)) {
       _.buildDOM(buttonType);
       $photocarouselDivs = _.$photocarousel.children('.photocarousel-div');
@@ -242,7 +240,6 @@
    */
   Photocarousel.prototype.createPhotocarouselDivs = function() {
     const _ = this;
-    console.log('left s troke');
     if (!_.options.isUserImages) {
       for (let i = 0; i < _.options.numberOfSlides; i++) {
         let imagePath = buildLocalPath(images[i].path);
@@ -251,6 +248,7 @@
       }
     } else {
       const $imgs = _.$photocarouselContainer.children('img').detach();
+      _.photocarouselData.imageData = $imgs;
       $imgs.each(function(i){
         let imagePath = $(this).attr('src');
         let imageCaption = $(this).attr('title');
@@ -438,122 +436,137 @@
     return;
   };
 
-    /**
-     * fetchImageHandler
-     * This handler determines how the flickr api is being used
-     * @param {event} event event object when clicked
-     */
-    function fetchImageHandler(event) {
-      event.preventDefault();
-      const _ = event.data._;
-      const $photocarouselContainer = _.$photocarouselContainer;
-      const keywords = $(this).find(".fetch-keywords").val().trim().split(/\s+/).join(',');
-      const $loader = _.$photocarousel.children('.wait');
-      try {
-        if (!keywords){
-          throw('Empty keywords not allowed');
-        }
-      } catch (e) {
-        alert(`Error: ${e}`);
-        return;
+  /**
+   * fetchImageHandler
+   * This handler determines how the flickr api is being used
+   * @param {event} event event object when clicked
+   */
+  function fetchImageHandler(event) {
+    event.preventDefault();
+    const _ = event.data._;
+    const $photocarouselContainer = _.$photocarouselContainer;
+    const keywords = $(this).find(".fetch-keywords").val().trim().split(/\s+/).join(',');
+    const $loader = _.$photocarousel.children('.wait');
+    try {
+      if (!keywords){
+        throw('Empty keywords not allowed');
       }
-      const apiKey = "fd5f20a53c009a33506904c2ab164800";
-      const flickrurl = "https://api.flickr.com/services/rest/";
-      $loader.show();
-      var xhr = $.ajax({
-        dataType: "json",
-        url: flickrurl,
-        data: {
-          method: "flickr.photos.search",
-          api_key: apiKey,
-          format: 'json',
-          nojsoncallback: 1,
-          tags: keywords,
-          safe_search: 1,
-          content_type: 4,
-          per_page: 20
-        }
-      }).done(function(rsp, textStatus, jqXHR) {
-        if (rsp.stat !== 'ok') {
-          console.log(rsp.stat + rsp.code + rsp.message);
-          console.log('not ok');
-          return;
-        } else {
-          const data = rsp.photos.photo;
-          _.photocarouselData.imageData = data;
-          _.photocarouselData.currentIndex = 0;
-          _.render('fetch');
-        }
-        return;
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log('fail');
-        console.log('textStatus = ' + textStatus);
-        console.log('errorThrown = ' + errorThrown);
-      }).always(function(){
-        $loader.hide();
-      });
-
+    } catch (e) {
+      alert(`Error: ${e}`);
       return;
     }
+    const apiKey = "fd5f20a53c009a33506904c2ab164800";
+    const flickrurl = "https://api.flickr.com/services/rest/";
+    $loader.show();
+    var xhr = $.ajax({
+      dataType: "json",
+      url: flickrurl,
+      data: {
+        method: "flickr.photos.search",
+        api_key: apiKey,
+        format: 'json',
+        nojsoncallback: 1,
+        tags: keywords,
+        safe_search: 1,
+        content_type: 4,
+        per_page: 20
+      }
+    }).done(function(rsp, textStatus, jqXHR) {
+      if (rsp.stat !== 'ok') {
+        console.log(rsp.stat + rsp.code + rsp.message);
+        console.log('not ok');
+        return;
+      } else {
+        const data = rsp.photos.photo;
+        _.photocarouselData.imageData = data;
+        _.photocarouselData.currentIndex = 0;
+        _.render('fetch');
+      }
+      return;
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log('fail');
+      console.log('textStatus = ' + textStatus);
+      console.log('errorThrown = ' + errorThrown);
+    }).always(function(){
+      $loader.hide();
+    });
 
-    /**
-     * photocarouselButtonHandler
-     * This handler determines which slide is to be chosen next for transition
-     * @param {event} event event object when clicked
-     */
-    function photocarouselButtonHandler(event) {
-      const _ = event.data._;
-      const $photocarouselContainer = _.$photocarouselContainer;
-      const $photocarousel = _.$photocarousel;
-      const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
-      const buttonType = this.name;
-      const buttonActive = _.photocarouselData.active;
-      const currentIndex = _.photocarouselData.currentIndex;
-      let nextIndex = currentIndex;
-      //check which button is being pressed and determine the next index
-      if (buttonActive) {
-        _.photocarouselData.active = false;
-        if (buttonType === "next" && $photocarouselDivs.length > 1) {
-          if (nextIndex >= $photocarouselDivs.length - 1) {
-            nextIndex = 0;
-          } else {
-            nextIndex += 1;
-          }
-        } else if (buttonType === "previous" && $photocarouselDivs.length > 1) {
-          if (nextIndex <= 0) {
-            nextIndex = $photocarouselDivs.length - 1;
-          } else {
-            nextIndex -= 1;
-          }
+    return;
+  }
+
+  /**
+   * photocarouselButtonHandler
+   * This handler determines which slide is to be chosen next for transition
+   * @param {event} event event object when clicked
+   */
+  function photocarouselButtonHandler(event) {
+    const _ = event.data._;
+    const $photocarouselContainer = _.$photocarouselContainer;
+    const $photocarousel = _.$photocarousel;
+    const $photocarouselDivs = $photocarousel.children('.photocarousel-div');
+    const buttonType = this.name;
+    const buttonActive = _.photocarouselData.active;
+    const currentIndex = _.photocarouselData.currentIndex;
+    let nextIndex = currentIndex;
+    //check which button is being pressed and determine the next index
+    if (buttonActive) {
+      _.photocarouselData.active = false;
+      if (buttonType === "next" && $photocarouselDivs.length > 1) {
+        if (nextIndex >= $photocarouselDivs.length - 1) {
+          nextIndex = 0;
         } else {
-          // TODO: allow the user to know that there is only one slide in the
-          // carousel, perhaps by adding dots to indicate the current slide
-          console.log("only 1 image displayed");
-          return;
+          nextIndex += 1;
+        }
+      } else if (buttonType === "previous" && $photocarouselDivs.length > 1) {
+        if (nextIndex <= 0) {
+          nextIndex = $photocarouselDivs.length - 1;
+        } else {
+          nextIndex -= 1;
         }
       } else {
+        // TODO: allow the user to know that there is only one slide in the
+        // carousel, perhaps by adding dots to indicate the current slide
+        console.log("only 1 image displayed");
         return;
       }
-
-      // $photocarousel.data('current-index', nextIndex);
-      _.photocarouselData.nextIndex = nextIndex;
-      _.render(buttonType);
+    } else {
       return;
     }
 
-    /**
-     * resetFetchHandler
-     * This handler determines how to reset the photocarousel
-     * @param {event} event event object when clicked
-     */
-    function resetFetchHandler(event){
+    // $photocarousel.data('current-index', nextIndex);
+    _.photocarouselData.nextIndex = nextIndex;
+    _.render(buttonType);
+    return;
+  }
+
+  /**
+   * resetFetchHandler
+   * This handler determines how to reset the photocarousel
+   * @param {event} event event object when clicked
+   */
+  function resetFetchHandler(event){
+  const _ = event.data._;
+  const $photocarouselContainer = _.photocarouselContainer;
+  const $photocarousel = _.$photocarousel;
+  _.render(this.type);
+  }
+  /**
+   * photocarouselDotHandler
+   * This handler determines which image to jump to when the dots are being pressed
+   *
+   * @param {event} event event object when clicked
+   */
+  function photocarouselDotHandler(event) {
     const _ = event.data._;
-    const $photocarouselContainer = _.photocarouselContainer;
-    const $photocarousel = _.$photocarousel;
-    _.render(this.type);
-    }
-
-
+    const $buttonPressed = $(this);
+    const indexOfButton = $buttonPressed.index();
+    // TODO:
+    // fetch the index of the buttonPressed
+    // check against the current index on the photocarousel
+    // determine the next index of the photo that is to be pressed
+    // update index
+    // tweak to
+  }
 
   // preventing against multiple instantiations
   $.fn[pluginName] = function(options) {
